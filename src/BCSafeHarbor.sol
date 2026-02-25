@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import { BCBase } from "bc-lib/BCBase.sol";
-import { BCConfig } from "bc-lib/BCConfig.sol";
+import { BCBase } from "src/BCBase.sol";
+import { BCConfig } from "src/BCConfig.sol";
 import {
     AgreementDetails,
     Contact,
@@ -11,11 +11,11 @@ import {
     ChildContractScope,
     BountyTerms,
     IdentityRequirements
-} from "bc-lib/types/AgreementTypes.sol";
-import { IAgreementFactory } from "bc-lib/interfaces/IAgreementFactory.sol";
-import { IAgreement } from "bc-lib/interfaces/IAgreement.sol";
-import { IAttackRegistry } from "bc-lib/interfaces/IAttackRegistry.sol";
-import { IBCSafeHarborRegistry } from "bc-lib/interfaces/IBCSafeHarborRegistry.sol";
+} from "src/types/AgreementTypes.sol";
+import { IAgreementFactory } from "src/interfaces/IAgreementFactory.sol";
+import { IAgreement } from "src/interfaces/IAgreement.sol";
+import { IAttackRegistry } from "src/interfaces/IAttackRegistry.sol";
+import { IBCSafeHarborRegistry } from "src/interfaces/IBCSafeHarborRegistry.sol";
 
 /// @notice Agreement builder and registry helpers for BattleChain Safe Harbor.
 abstract contract BCSafeHarbor is BCBase {

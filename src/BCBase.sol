@@ -2,7 +2,7 @@
 pragma solidity ^0.8.24;
 
 import { Script } from "forge-std/Script.sol";
-import { BCConfig } from "bc-lib/BCConfig.sol";
+import { BCConfig } from "src/BCConfig.sol";
 
 /// @notice Shared base providing BattleChain address resolution.
 /// On known chains (627, etc.) addresses resolve from BCConfig.

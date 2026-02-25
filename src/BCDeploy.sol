@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
-import { BCBase } from "bc-lib/BCBase.sol";
-import { IBCDeployer } from "bc-lib/interfaces/IBCDeployer.sol";
+import { BCBase } from "src/BCBase.sol";
+import { IBCDeployer } from "src/interfaces/IBCDeployer.sol";
 
 /// @notice Deploy helpers via BattleChainDeployer.
 /// Tracks all deployed addresses for use with BCSafeHarbor.
