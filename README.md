@@ -1,4 +1,4 @@
-# Battlechain Template Repo (Foundry)
+# Battlechain Deployment Library
 
 This template repo is a quick and easy way to get started with **BattleChain**. 
 
