@@ -2,15 +2,27 @@
   "name": "@cyfrin/battlechain-lib",
   "description": "Foundry library for deploying on BattleChain and adopting Safe Harbor agreements",
   "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./src/*": "./src/*"
+  },
   "files": [
     "/src/**/*.sol",
-    "!/src/**/mocks/**/*"
+    "!/src/**/mocks/**/*",
+    "/dist/**/*"
   ],
   "scripts": {
     "build": "forge build",
+    "build:ts": "node scripts/codegen.mjs && tsc -p tsconfig.build.json",
     "test": "forge test",
     "lint": "forge fmt --check",
-    "lint:fix": "forge fmt"
+    "lint:fix": "forge fmt",
+    "prepublishOnly": "npm run build:ts",
+    "publish:npm": "npm publish --access public"
   },
   "repository": {
     "type": "git",
@@ -30,5 +42,11 @@
   "bugs": {
     "url": "https://github.com/cyfrin/battlechain-lib/issues"
   },
-  "homepage": "https://docs.battlechain.com"
+  "homepage": "https://docs.battlechain.com",
+  "dependencies": {
+    "viem": "^2.43.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.0"
+  }
 }

@@ -4,6 +4,8 @@ Foundry library for deploying on [BattleChain](https://docs.battlechain.com) and
 
 ## Installation
 
+### Foundry
+
 ```shell
 forge install cyfrin/battlechain-lib
 ```
@@ -12,6 +14,20 @@ Add the remapping to your `foundry.toml`:
 
 ```toml
 remappings = ["battlechain-lib/=lib/battlechain-lib/src/"]
+```
+
+### npm / Hardhat (in development)
+
+> **Note:** Hardhat support is still in development. The TypeScript exports and Solidity imports work, but the integration is not yet fully tested. Expect rough edges.
+
+```shell
+npm install @cyfrin/battlechain-lib
+```
+
+Add the remapping to your `hardhat.config` or `remappings.txt`:
+
+```
+battlechain-lib/=node_modules/@cyfrin/battlechain-lib/src/
 ```
 
 ## Quick Start
@@ -86,19 +102,26 @@ Full BattleChain documentation: [docs.battlechain.com](https://docs.battlechain.
 
 ## Teach Your AI About BattleChain
 
-If you're using an AI coding assistant (Claude Code, Cursor, Copilot, etc.), add the following to your project's `CLAUDE.md`, `.cursorrules`, or equivalent instructions file:
+**Claude Code:** Install the BattleChain skill:
 
-```markdown
-This project deploys on BattleChain. Use context7 MCP to look up
-the latest docs before writing or modifying deploy scripts:
-
-1. Resolve the library ID: resolve-library-id("battlechain")
-2. Query the docs: query-docs(id, "topic you need")
-
-BattleChain docs: https://docs.battlechain.com
+```shell
+npx skills add cyfrin/solskill --skill battlechain
 ```
 
-If your AI tool supports fetching URLs, point it at `https://docs.battlechain.com` for the latest protocol documentation, contract addresses, and integration guides.
+**Other AI tools (Cursor, Copilot, etc.):** Add this to your `.cursorrules` or equivalent AI instructions file:
+
+```markdown
+This project deploys on BattleChain.
+
+AI docs: https://docs.battlechain.com/llms-full.txt
+```
+
+BattleChain docs follow the [llms.txt convention](https://llmstxt.org/):
+
+| URL | Contents |
+| --- | -------- |
+| [llms.txt](https://docs.battlechain.com/llms.txt) | Table of contents with page titles and links |
+| [llms-full.txt](https://docs.battlechain.com/llms-full.txt) | Complete docs as clean markdown |
 
 ## Development
 
