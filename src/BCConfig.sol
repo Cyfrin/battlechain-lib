@@ -43,15 +43,15 @@ library BCConfig {
     // Testnet addresses
     // -------------------------------------------------------------------------
 
-    address internal constant TESTNET_REGISTRY = 0xCb2A561395118895e2572A04C2D8AB8eCA8d7E5D;
-    address internal constant TESTNET_AGREEMENT_FACTORY = 0x0EbBEeB3aBeF51801a53Fdd1fb263Ac0f2E3Ed36;
-    address internal constant TESTNET_ATTACK_REGISTRY = 0x9E62988ccA776ff6613Fa68D34c9AB5431Ce57e1;
-    address internal constant TESTNET_DEPLOYER = 0x8f57054CBa2021bEE15631067dd7B7E0B43F17Dc;
+    address internal constant TESTNET_REGISTRY = 0x0a652e265336a0296816aC4D8400880e3E537C24;
+    address internal constant TESTNET_AGREEMENT_FACTORY = 0x2Bee2970f10FDc2aeA28662BB6F6A501278Ebd46;
+    address internal constant TESTNET_ATTACK_REGISTRY = 0xdD029a6374095EEb4c47a2364Ce1D0f47f007350;
+    address internal constant TESTNET_DEPLOYER = 0x74269804941119554460956f16Fe82Fbe4B90448;
     address internal constant TESTNET_CREATEX = 0xf1Ebfaa992854ECcB01Ac1F60e5b5279095cca7F;
-    address internal constant TESTNET_REGISTRY_IMPL = 0xD9B325CA3f43aC153104C0875587Ffc1601076f2;
-    address internal constant TESTNET_AGREEMENT_FACTORY_IMPL = 0x45B36746e35bD691d981CeE11bdddFa4fE14D43e;
-    address internal constant TESTNET_ATTACK_REGISTRY_IMPL = 0x02f2d446fc20F71FD1414F5c4E99679595e17e50;
-    address internal constant TESTNET_MOCK_REGISTRY_MODERATOR = 0x6C2DFbdF0714FC8CE065039911758b2821818745;
+    address internal constant TESTNET_REGISTRY_IMPL = 0xCd8B924D0F43C26E99dDE7a2C7A47d9fAf0c10bB;
+    address internal constant TESTNET_AGREEMENT_FACTORY_IMPL = 0x7D14c46539f673152857Ea647E66E5AD5f820043;
+    address internal constant TESTNET_ATTACK_REGISTRY_IMPL = 0x34328AeBd4e3b173B71144AB29F4509E6816277c;
+    address internal constant TESTNET_MOCK_REGISTRY_MODERATOR = 0x1bC64E6F187a47D136106784f4E9182801535BD3;
 
     // -------------------------------------------------------------------------
     // Errors
