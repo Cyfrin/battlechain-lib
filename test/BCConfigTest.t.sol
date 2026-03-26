@@ -32,22 +32,22 @@ contract BCConfigTest is Test {
 
     function test_testnet_registry() public {
         vm.chainId(627);
-        assertEq(BCConfig.registry(), 0xCb2A561395118895e2572A04C2D8AB8eCA8d7E5D);
+        assertEq(BCConfig.registry(), 0x0A652e265336a0296816ac4D8400880E3e537c24);
     }
 
     function test_testnet_agreementFactory() public {
         vm.chainId(627);
-        assertEq(BCConfig.agreementFactory(), 0x0EbBEeB3aBeF51801a53Fdd1fb263Ac0f2E3Ed36);
+        assertEq(BCConfig.agreementFactory(), 0x2BEe2970f10FDc2aeA28662Bb6f6a501278eBd46);
     }
 
     function test_testnet_attackRegistry() public {
         vm.chainId(627);
-        assertEq(BCConfig.attackRegistry(), 0x9E62988ccA776ff6613Fa68D34c9AB5431Ce57e1);
+        assertEq(BCConfig.attackRegistry(), 0xdD029a6374095EEb4c47a2364Ce1D0f47f007350);
     }
 
     function test_testnet_deployer() public {
         vm.chainId(627);
-        assertEq(BCConfig.deployer(), 0x8f57054CBa2021bEE15631067dd7B7E0B43F17Dc);
+        assertEq(BCConfig.deployer(), 0x74269804941119554460956f16Fe82Fbe4B90448);
     }
 
     function test_caip2ChainId_mainnet() public {

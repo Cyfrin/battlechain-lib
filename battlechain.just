@@ -6,7 +6,7 @@
 #   ACCOUNT  — Foundry keystore account name (e.g. "battlechain")
 #   SENDER   — Deployer's public address
 
-bc-rpc := "https://testnet.battlechain.com:3051"
+bc-rpc := "https://testnet.battlechain.com"
 bc-explorer-api := "https://block-explorer-api.testnet.battlechain.com/api"
 bc-chain-id := "627"
 bc-verify-flags := "--verifier-url " + bc-explorer-api + " --verifier custom --etherscan-api-key 1234"

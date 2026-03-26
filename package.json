@@ -1,7 +1,7 @@
 {
   "name": "@cyfrin/battlechain-lib",
   "description": "Foundry library for deploying on BattleChain and adopting Safe Harbor agreements",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "exports": {
     ".": {
