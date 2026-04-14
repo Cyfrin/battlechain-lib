@@ -32,12 +32,12 @@ contract BCConfigTest is Test {
 
     function test_testnet_registry() public {
         vm.chainId(627);
-        assertEq(BCConfig.registry(), 0x0A652e265336a0296816ac4D8400880E3e537c24);
+        assertEq(BCConfig.registry(), 0x0a652e265336a0296816aC4D8400880e3E537C24);
     }
 
     function test_testnet_agreementFactory() public {
         vm.chainId(627);
-        assertEq(BCConfig.agreementFactory(), 0x2BEe2970f10FDc2aeA28662Bb6f6a501278eBd46);
+        assertEq(BCConfig.agreementFactory(), 0x2Bee2970f10FDc2aeA28662BB6F6A501278Ebd46);
     }
 
     function test_testnet_attackRegistry() public {
