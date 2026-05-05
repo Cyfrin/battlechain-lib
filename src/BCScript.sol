@@ -12,7 +12,7 @@ abstract contract BCScript is BCDeploy, BCSafeHarbor {
     function _protocolName() internal pure virtual returns (string memory);
 
     /// @notice Contact details for security pre-notification.
-    function _contacts() internal pure virtual returns (Contact[] memory);
+    function _contacts() internal view virtual returns (Contact[] memory);
 
     /// @notice Address that receives recovered assets.
     function _recoveryAddress() internal view virtual returns (address);
