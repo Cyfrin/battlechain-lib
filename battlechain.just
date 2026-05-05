@@ -35,8 +35,11 @@ bc-verify-broadcast script:
     fi
     echo "Parsing $BROADCAST..."
 
-    # ContractCreation(address indexed) event topic (CreateX)
-    CREATEX_TOPIC="0x4db17dd5e4732fb6da34a148104a592783ca119a1e7bb8829eba6cbadef0b511"
+    # CreateX ContractCreation event topics — different shapes for CREATE vs CREATE2/CREATE3:
+    #   CREATE:           ContractCreation(address indexed)            -> 0x4db17dd5...
+    #   CREATE2/CREATE3:  ContractCreation(address indexed, bytes32)   -> 0xb8fda7e0...
+    CREATEX_TOPIC_CREATE="0x4db17dd5e4732fb6da34a148104a592783ca119a1e7bb8829eba6cbadef0b511"
+    CREATEX_TOPIC_CREATE2="0xb8fda7e00c6b06a2b54e58521bc5894fee35f1090e5a3bb6390bfe2b98b497f7"
 
     # Match initCode prefix against compiled artifacts.
     # Prints "src/path:ContractName" on match, empty otherwise.
@@ -82,13 +85,14 @@ bc-verify-broadcast script:
         [ -n "$addr" ] && verify_contract "$addr" "$initcode"
     done
 
-    # 2. Factory creates (ContractCreation events from CreateX/BCDeploy)
-    jq -r --arg topic "$CREATEX_TOPIC" '
+    # 2. Factory creates (ContractCreation events from CreateX/BCDeploy).
+    # Both CREATE and CREATE2/CREATE3 events put the deployed address in topics[1].
+    jq -r --arg t1 "$CREATEX_TOPIC_CREATE" --arg t2 "$CREATEX_TOPIC_CREATE2" '
         ([.transactions[] | {key: .hash, value: .transaction.input}] | from_entries) as $inputs |
         .receipts[] |
         .transactionHash as $txhash |
         .logs[] |
-        select(.topics[0] == $topic) |
+        select(.topics[0] == $t1 or .topics[0] == $t2) |
         ("0x" + .topics[1][-40:]) + " " + ($inputs[$txhash] // "")
     ' "$BROADCAST" | while IFS=' ' read -r addr callinput; do
         [ -z "$addr" ] || [ -z "$callinput" ] && continue
