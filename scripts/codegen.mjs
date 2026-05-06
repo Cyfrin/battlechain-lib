@@ -171,7 +171,7 @@ export const BATTLECHAIN_SAFE_HARBOR_URI = "${strings.BATTLECHAIN_SAFE_HARBOR_UR
 `;
 
 // Build network configs from parsed constants.
-// Currently only testnet has full addresses; mainnet/devnet have chain IDs only.
+// Currently only testnet has full addresses; mainnet has chain ID only.
 const networks = [
   {
     exportName: "bcTestnet",
@@ -186,7 +186,7 @@ const networks = [
   },
 ];
 
-// Only emit mainnet/devnet if they have addresses in BCConfig.sol
+// Only emit mainnet if it has addresses in BCConfig.sol
 if (addresses.MAINNET_REGISTRY) {
   networks.unshift({
     exportName: "bcMainnet",
@@ -197,20 +197,6 @@ if (addresses.MAINNET_REGISTRY) {
     attackRegistry: addresses.MAINNET_ATTACK_REGISTRY,
     deployer: addresses.MAINNET_DEPLOYER,
     createX: addresses.MAINNET_CREATEX || addresses.WELL_KNOWN_CREATEX,
-    safeHarborUri: strings.BATTLECHAIN_SAFE_HARBOR_URI,
-  });
-}
-
-if (addresses.DEVNET_REGISTRY) {
-  networks.push({
-    exportName: "bcDevnet",
-    chainId: uints.DEVNET_CHAIN_ID,
-    caip2: strings.DEVNET_CAIP2,
-    registry: addresses.DEVNET_REGISTRY,
-    factory: addresses.DEVNET_AGREEMENT_FACTORY,
-    attackRegistry: addresses.DEVNET_ATTACK_REGISTRY,
-    deployer: addresses.DEVNET_DEPLOYER,
-    createX: addresses.DEVNET_CREATEX || addresses.WELL_KNOWN_CREATEX,
     safeHarborUri: strings.BATTLECHAIN_SAFE_HARBOR_URI,
   });
 }
@@ -232,14 +218,9 @@ for (const net of networks) {
 configTs += `// Chain IDs
 export const BC_MAINNET_CHAIN_ID = ${uints.MAINNET_CHAIN_ID};
 export const BC_TESTNET_CHAIN_ID = ${uints.TESTNET_CHAIN_ID};
-export const BC_DEVNET_CHAIN_ID = ${uints.DEVNET_CHAIN_ID};
 
 export function isBattleChain(chainId: number): boolean {
-  return (
-    chainId === BC_MAINNET_CHAIN_ID ||
-    chainId === BC_TESTNET_CHAIN_ID ||
-    chainId === BC_DEVNET_CHAIN_ID
-  );
+  return chainId === BC_MAINNET_CHAIN_ID || chainId === BC_TESTNET_CHAIN_ID;
 }
 `;
 

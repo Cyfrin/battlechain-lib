@@ -60,11 +60,6 @@ contract BCConfigTest is Test {
         assertEq(BCConfig.caip2ChainId(), "eip155:627");
     }
 
-    function test_caip2ChainId_devnet() public {
-        vm.chainId(624);
-        assertEq(BCConfig.caip2ChainId(), "eip155:624");
-    }
-
     function test_registry_reverts_unsupportedChain() public {
         vm.chainId(1);
         vm.expectRevert(abi.encodeWithSelector(BCConfig.BCConfig__UnsupportedChainId.selector, 1));
@@ -94,11 +89,6 @@ contract BCConfigTest is Test {
 
     function test_isBattleChain_testnet() public {
         vm.chainId(627);
-        assertTrue(BCConfig.isBattleChain());
-    }
-
-    function test_isBattleChain_devnet() public {
-        vm.chainId(624);
         assertTrue(BCConfig.isBattleChain());
     }
 

@@ -92,7 +92,6 @@ See [`script/Example.s.sol`](script/Example.s.sol) for full examples including g
 | ------- | -------- |
 | Mainnet | 626      |
 | Testnet | 627      |
-| Devnet  | 624      |
 
 For unsupported chains or local Anvil testing, use `_setBcAddresses()` to provide contract addresses manually.
 

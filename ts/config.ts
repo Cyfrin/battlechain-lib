@@ -27,12 +27,7 @@ export const bcTestnet: BcNetworkConfig = {
 // Chain IDs
 export const BC_MAINNET_CHAIN_ID = 626;
 export const BC_TESTNET_CHAIN_ID = 627;
-export const BC_DEVNET_CHAIN_ID = 624;
 
 export function isBattleChain(chainId: number): boolean {
-  return (
-    chainId === BC_MAINNET_CHAIN_ID ||
-    chainId === BC_TESTNET_CHAIN_ID ||
-    chainId === BC_DEVNET_CHAIN_ID
-  );
+  return chainId === BC_MAINNET_CHAIN_ID || chainId === BC_TESTNET_CHAIN_ID;
 }

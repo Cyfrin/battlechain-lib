@@ -13,7 +13,6 @@ export {
   BATTLECHAIN_SAFE_HARBOR_URI,
   BC_MAINNET_CHAIN_ID,
   BC_TESTNET_CHAIN_ID,
-  BC_DEVNET_CHAIN_ID,
   isBattleChain,
 } from "./config.js";
 

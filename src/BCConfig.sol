@@ -14,7 +14,6 @@ library BCConfig {
 
     uint256 internal constant MAINNET_CHAIN_ID = 626;
     uint256 internal constant TESTNET_CHAIN_ID = 627;
-    uint256 internal constant DEVNET_CHAIN_ID = 624;
 
     // -------------------------------------------------------------------------
     // CAIP-2 chain ID strings
@@ -22,7 +21,6 @@ library BCConfig {
 
     string internal constant MAINNET_CAIP2 = "eip155:626";
     string internal constant TESTNET_CAIP2 = "eip155:627";
-    string internal constant DEVNET_CAIP2 = "eip155:624";
 
     // -------------------------------------------------------------------------
     // CreateX — well-known address, same on all supported chains
@@ -86,13 +84,11 @@ library BCConfig {
     function caip2ChainId() internal view returns (string memory) {
         if (block.chainid == MAINNET_CHAIN_ID) return MAINNET_CAIP2;
         if (block.chainid == TESTNET_CHAIN_ID) return TESTNET_CAIP2;
-        if (block.chainid == DEVNET_CHAIN_ID) return DEVNET_CAIP2;
         revert BCConfig__UnsupportedChainId(block.chainid);
     }
 
     function isBattleChain() internal view returns (bool) {
-        return
-            block.chainid == MAINNET_CHAIN_ID || block.chainid == TESTNET_CHAIN_ID || block.chainid == DEVNET_CHAIN_ID;
+        return block.chainid == MAINNET_CHAIN_ID || block.chainid == TESTNET_CHAIN_ID;
     }
 
     error BCConfig__CreateXNotAvailable(uint256 chainId);
