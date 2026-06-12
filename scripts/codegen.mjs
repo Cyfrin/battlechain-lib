@@ -163,7 +163,7 @@ import type { BcNetworkConfig } from "./types.js";
 
 // Well-known addresses
 export const WELL_KNOWN_CREATEX: Address = "${addresses.WELL_KNOWN_CREATEX}";
-
+${addresses.MAINNET_CREATEX ? `export const MAINNET_CREATEX: Address = "${addresses.MAINNET_CREATEX}";\n` : ""}
 // URIs
 export const SAFE_HARBOR_V3_URI = "${strings.SAFE_HARBOR_V3_URI}";
 export const BATTLECHAIN_SAFE_HARBOR_URI = "${strings.BATTLECHAIN_SAFE_HARBOR_URI}";
@@ -171,7 +171,6 @@ export const BATTLECHAIN_SAFE_HARBOR_URI = "${strings.BATTLECHAIN_SAFE_HARBOR_UR
 `;
 
 // Build network configs from parsed constants.
-// Currently only testnet has full addresses; mainnet has chain ID only.
 const networks = [
   {
     exportName: "bcTestnet",

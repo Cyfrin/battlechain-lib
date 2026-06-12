@@ -6,9 +6,14 @@
 #   ACCOUNT  — Foundry keystore account name (e.g. "battlechain")
 #   SENDER   — Deployer's public address
 
-bc-rpc := "https://testnet.battlechain.com"
-bc-explorer-api := "https://block-explorer-api.testnet.battlechain.com/api"
-bc-chain-id := "627"
+# Target network: "testnet" (default, chain 627) or "mainnet" (chain 626).
+# Select with `NETWORK=mainnet just <recipe>`.
+export NETWORK := env("NETWORK", "testnet")
+
+bc-rpc := if NETWORK == "mainnet" { "https://mainnet.battlechain.com" } else { "https://testnet.battlechain.com" }
+bc-chain-id := if NETWORK == "mainnet" { "626" } else { "627" }
+
+bc-explorer-api := if NETWORK == "mainnet" { "https://block-explorer-api.mainnet.battlechain.com/api" } else { "https://block-explorer-api.testnet.battlechain.com/api" }
 bc-verify-flags := "--verifier-url " + bc-explorer-api + " --verifier custom --etherscan-api-key 1234"
 
 # Verify a single contract on the BattleChain block explorer.

@@ -35,21 +35,35 @@ library BCConfig {
 
     string internal constant SAFE_HARBOR_V3_URI = "ipfs://bafkreiernns2f4nv2uzvwtzjc2jboyivsu2mixz33y3xo7cvtllsuao6jy";
     string internal constant BATTLECHAIN_SAFE_HARBOR_URI =
-        "ipfs://bafkreifgln3ir67woluatpwn3b65gjkrbmoq6jgzzotm3anas3vvq4yp4m";
+        "ipfs://bafkreibrplcrle2zxiezhm2metajrrdqyvwglhakddrdt27elmrezp5bge";
+
+    // -------------------------------------------------------------------------
+    // Mainnet addresses
+    // -------------------------------------------------------------------------
+
+    address internal constant MAINNET_REGISTRY = 0xd229f4EE1bAE432010b72a9d1bD682570F4C6eBe;
+    address internal constant MAINNET_AGREEMENT_FACTORY = 0xCdB7F5C0F708baBaabE82afE1DbA8362023AcFdd;
+    address internal constant MAINNET_ATTACK_REGISTRY = 0x24876e481eC7198CAC95af739Df2a852CE65A415;
+    address internal constant MAINNET_DEPLOYER = 0xD12765D21dDba418B8Fc0583c4716763e03Aa078;
+    address internal constant MAINNET_CREATEX = 0xa397f06F07251A3AEd53f6d3019A2a6cbd83E53e;
+    address internal constant MAINNET_REGISTRY_IMPL = 0xBFF0ec94740c287932B50E64c2e8b380129B99a1;
+    address internal constant MAINNET_AGREEMENT_FACTORY_IMPL = 0x8d4fEDF4462E3876Ae7C70CC0C5cebA482003Ad5;
+    address internal constant MAINNET_ATTACK_REGISTRY_IMPL = 0x03A3228A4ce38362289E715bbc26Cac8b98e421B;
+    address internal constant MAINNET_REGISTRY_MODERATOR = 0x445d5685c4Ae71550Da0716b82B434AEA140E0c7;
 
     // -------------------------------------------------------------------------
     // Testnet addresses
     // -------------------------------------------------------------------------
 
-    address internal constant TESTNET_REGISTRY = 0x0a652e265336a0296816aC4D8400880e3E537C24;
-    address internal constant TESTNET_AGREEMENT_FACTORY = 0x2Bee2970f10FDc2aeA28662BB6F6A501278Ebd46;
-    address internal constant TESTNET_ATTACK_REGISTRY = 0xdD029a6374095EEb4c47a2364Ce1D0f47f007350;
-    address internal constant TESTNET_DEPLOYER = 0x74269804941119554460956f16Fe82Fbe4B90448;
+    address internal constant TESTNET_REGISTRY = 0x07E09f67B272aec60eebBfB3D592eC649BDCFEFc;
+    address internal constant TESTNET_AGREEMENT_FACTORY = 0xf52CEA27b9E20D03Ec48CDe4fafF8F27565646f2;
+    address internal constant TESTNET_ATTACK_REGISTRY = 0x22134e878c409a0Eab7259d873b38e26Ca966d3C;
+    address internal constant TESTNET_DEPLOYER = 0x0f75289c6b883b885A1fDF9BCCABE1bbFB094077;
     address internal constant TESTNET_CREATEX = 0xf1Ebfaa992854ECcB01Ac1F60e5b5279095cca7F;
-    address internal constant TESTNET_REGISTRY_IMPL = 0xCd8B924D0F43C26E99dDE7a2C7A47d9fAf0c10bB;
-    address internal constant TESTNET_AGREEMENT_FACTORY_IMPL = 0x7D14c46539f673152857Ea647E66E5AD5f820043;
-    address internal constant TESTNET_ATTACK_REGISTRY_IMPL = 0x34328AeBd4e3b173B71144AB29F4509E6816277c;
-    address internal constant TESTNET_MOCK_REGISTRY_MODERATOR = 0x1bC64E6F187a47D136106784f4E9182801535BD3;
+    address internal constant TESTNET_REGISTRY_IMPL = 0x7d6fC65eA6436f1621973BcfeaAD8951853D8E35;
+    address internal constant TESTNET_AGREEMENT_FACTORY_IMPL = 0x8E940c4FE62ea1696751faA99F45F30459c6c978;
+    address internal constant TESTNET_ATTACK_REGISTRY_IMPL = 0x4496b7e04b4Dd94153AA0d614708d5f06fc65a13;
+    address internal constant TESTNET_MOCK_REGISTRY_MODERATOR = 0x3DdA228A38b4d7438bBF5D5137c8D1090DcaF6bF;
 
     // -------------------------------------------------------------------------
     // Errors
@@ -62,21 +76,25 @@ library BCConfig {
     // -------------------------------------------------------------------------
 
     function registry() internal view returns (address) {
+        if (block.chainid == MAINNET_CHAIN_ID) return MAINNET_REGISTRY;
         if (block.chainid == TESTNET_CHAIN_ID) return TESTNET_REGISTRY;
         revert BCConfig__UnsupportedChainId(block.chainid);
     }
 
     function agreementFactory() internal view returns (address) {
+        if (block.chainid == MAINNET_CHAIN_ID) return MAINNET_AGREEMENT_FACTORY;
         if (block.chainid == TESTNET_CHAIN_ID) return TESTNET_AGREEMENT_FACTORY;
         revert BCConfig__UnsupportedChainId(block.chainid);
     }
 
     function attackRegistry() internal view returns (address) {
+        if (block.chainid == MAINNET_CHAIN_ID) return MAINNET_ATTACK_REGISTRY;
         if (block.chainid == TESTNET_CHAIN_ID) return TESTNET_ATTACK_REGISTRY;
         revert BCConfig__UnsupportedChainId(block.chainid);
     }
 
     function deployer() internal view returns (address) {
+        if (block.chainid == MAINNET_CHAIN_ID) return MAINNET_DEPLOYER;
         if (block.chainid == TESTNET_CHAIN_ID) return TESTNET_DEPLOYER;
         revert BCConfig__UnsupportedChainId(block.chainid);
     }
@@ -94,6 +112,7 @@ library BCConfig {
     error BCConfig__CreateXNotAvailable(uint256 chainId);
 
     function createX() internal view returns (address) {
+        if (block.chainid == MAINNET_CHAIN_ID) return MAINNET_CREATEX;
         if (block.chainid == TESTNET_CHAIN_ID) return TESTNET_CREATEX;
         if (CreateXChains.isSupported(block.chainid)) return WELL_KNOWN_CREATEX;
         revert BCConfig__CreateXNotAvailable(block.chainid);

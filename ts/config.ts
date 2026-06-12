@@ -8,20 +8,32 @@ import type { BcNetworkConfig } from "./types.js";
 
 // Well-known addresses
 export const WELL_KNOWN_CREATEX: Address = "0xba5Ed099633D3B313e4D5F7bdc1305d3c28ba5Ed";
+export const MAINNET_CREATEX: Address = "0xa397f06F07251A3AEd53f6d3019A2a6cbd83E53e";
 
 // URIs
 export const SAFE_HARBOR_V3_URI = "ipfs://bafkreiernns2f4nv2uzvwtzjc2jboyivsu2mixz33y3xo7cvtllsuao6jy";
-export const BATTLECHAIN_SAFE_HARBOR_URI = "ipfs://bafkreifgln3ir67woluatpwn3b65gjkrbmoq6jgzzotm3anas3vvq4yp4m";
+export const BATTLECHAIN_SAFE_HARBOR_URI = "ipfs://bafkreibrplcrle2zxiezhm2metajrrdqyvwglhakddrdt27elmrezp5bge";
+
+export const bcMainnet: BcNetworkConfig = {
+  chainId: 626,
+  caip2: "eip155:626",
+  registry: "0xd229f4EE1bAE432010b72a9d1bD682570F4C6eBe",
+  factory: "0xCdB7F5C0F708baBaabE82afE1DbA8362023AcFdd",
+  attackRegistry: "0x24876e481eC7198CAC95af739Df2a852CE65A415",
+  deployer: "0xD12765D21dDba418B8Fc0583c4716763e03Aa078",
+  createX: "0xa397f06F07251A3AEd53f6d3019A2a6cbd83E53e",
+  safeHarborUri: "ipfs://bafkreibrplcrle2zxiezhm2metajrrdqyvwglhakddrdt27elmrezp5bge",
+};
 
 export const bcTestnet: BcNetworkConfig = {
   chainId: 627,
   caip2: "eip155:627",
-  registry: "0x0A652e265336a0296816ac4D8400880E3e537c24",
-  factory: "0x2BEe2970f10FDc2aeA28662Bb6f6a501278eBd46",
-  attackRegistry: "0xdD029a6374095EEb4c47a2364Ce1D0f47f007350",
-  deployer: "0x74269804941119554460956f16Fe82Fbe4B90448",
+  registry: "0x07E09f67B272aec60eebBfB3D592eC649BDCFEFc",
+  factory: "0xf52CEA27b9E20D03Ec48CDe4fafF8F27565646f2",
+  attackRegistry: "0x22134e878c409a0Eab7259d873b38e26Ca966d3C",
+  deployer: "0x0f75289c6b883b885A1fDF9BCCABE1bbFB094077",
   createX: "0xf1Ebfaa992854ECcB01Ac1F60e5b5279095cca7F",
-  safeHarborUri: "ipfs://bafkreifgln3ir67woluatpwn3b65gjkrbmoq6jgzzotm3anas3vvq4yp4m",
+  safeHarborUri: "ipfs://bafkreibrplcrle2zxiezhm2metajrrdqyvwglhakddrdt27elmrezp5bge",
 };
 
 // Chain IDs

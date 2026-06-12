@@ -88,10 +88,15 @@ See [`script/Example.s.sol`](script/Example.s.sol) for full examples including g
 
 ## Supported Networks
 
-| Network | Chain ID |
-| ------- | -------- |
-| Mainnet | 626      |
-| Testnet | 627      |
+| Network | Chain ID | RPC URL                            |
+| ------- | -------- | ---------------------------------- |
+| Mainnet | 626      | `https://mainnet.battlechain.com`  |
+| Testnet | 627      | `https://testnet.battlechain.com`  |
+
+The core BattleChain contracts (registry, agreement factory, attack registry,
+deployer) and CreateX are deployed on both networks — `BCConfig` resolves them
+by chain ID. Block explorers: [explorer.mainnet.battlechain.com](https://explorer.mainnet.battlechain.com/)
+and [explorer.testnet.battlechain.com](https://explorer.testnet.battlechain.com/).
 
 For unsupported chains or local Anvil testing, use `_setBcAddresses()` to provide contract addresses manually.
 

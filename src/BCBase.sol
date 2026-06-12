@@ -6,7 +6,7 @@ import { Script } from "forge-std/Script.sol";
 import { BCConfig } from "./BCConfig.sol";
 
 /// @notice Shared base providing BattleChain address resolution.
-/// On known chains (627, etc.) addresses resolve from BCConfig.
+/// On known chains (mainnet 626, testnet 627) addresses resolve from BCConfig.
 /// On Anvil (31337) or unknown chains, use _setBcAddresses() to set overrides.
 abstract contract BCBase is Script {
     error BCBase__ZeroAddress();
@@ -18,8 +18,10 @@ abstract contract BCBase is Script {
 
     /// @notice Set address overrides for local testing or unsupported chains.
     function _setBcAddresses(address registry_, address factory_, address attackRegistry_, address deployer_) internal {
-        if (registry_ == address(0) || factory_ == address(0) || attackRegistry_ == address(0) || deployer_ == address(0))
-        {
+        if (
+            registry_ == address(0) || factory_ == address(0) || attackRegistry_ == address(0)
+                || deployer_ == address(0)
+        ) {
             revert BCBase__ZeroAddress();
         }
         _registryOverride = registry_;

@@ -159,7 +159,7 @@ function test_StatusOf()
 }
 ```
 
-8. Prefer strict pragma versions for contracts, and floating pragma versions for tests, libraries, abstract contracts, interfaces, and scripts.
+8. Prefer strict pragma versions for contracts, and floating pragma versions for tests, libraries, abstract contracts, interfaces, and scripts. Use `0.8.34` or later as the minimum version — versions `0.8.28` through `0.8.33` have a [high-severity transient storage bug](https://soliditylang.org/blog/2026/02/18/solidity-0.8.34-release-announcement/) where the IR pipeline (`--via-ir`) can emit `sstore` instead of `tstore` (and vice versa) when clearing storage, causing writes to the wrong storage domain.
 
 9. Add a security contact to the natspec at the top of your contracts
 
@@ -174,6 +174,7 @@ function test_StatusOf()
 
 11. NEVER. EVER. NEVER. Have private keys be in plain text. The _only_ exception to this rule is when using a default key from something like anvil, and it must be marked as such.
     - This includes in your deploy scripts. We should always use `forge script <path> --account $ACCOUNT --sender $SENDER` for our deploy scripts, and never use `vm.envUnit()` in our scripts.
+    - For hardhat, you want to use hardhat [encrypted keystores](https://hardhat.org/docs/plugins/hardhat-keystore)
 
 12. Whenever a smart contract is deployed that is ownable or has admin properties (like, `onlyOwner`), the admin must be a multisig from the very first deployment — never use the deployer EOA as admin (testnet is the only acceptable exception). See [Trail of Bits: Maturing Your Smart Contracts Beyond Private Key Risk](https://blog.trailofbits.com/2025/06/25/maturing-your-smart-contracts-beyond-private-key-risk/) — "Layer 1" (single EOA) governance is no longer acceptable for DeFi.
 
@@ -229,7 +230,7 @@ for (uint256 i; i < len; ++i) { }
 
 22. Use `nonReentrant` modifier before other modifiers
 
-23. Use `ReentrancyGuardTransient` for faster `nonReentrant` modifiers
+23. Use `ReentrancyGuardTransient` for faster `nonReentrant` modifiers. Requires `pragma solidity ^0.8.34;` — do not use with `0.8.28`–`0.8.33` due to the transient storage clearing bug.
 
 24. Prefer `Ownable2Step` instead of `Ownable`
 
