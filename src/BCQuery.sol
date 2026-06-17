@@ -13,7 +13,7 @@ abstract contract BCQuery is BCBase {
     // -------------------------------------------------------------------------
 
     string internal constant TESTNET_EXPLORER_API = "https://block-explorer-api.testnet.battlechain.com";
-    string internal constant MAINNET_EXPLORER_API = "https://block-explorer-api.battlechain.com";
+    string internal constant MAINNET_EXPLORER_API = "https://block-explorer-api.mainnet.battlechain.com";
 
     // -------------------------------------------------------------------------
     // Errors
