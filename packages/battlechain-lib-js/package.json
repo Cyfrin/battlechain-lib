@@ -1,0 +1,63 @@
+{
+  "name": "battlechain-lib-js",
+  "version": "1.0.0",
+  "description": "JS/TS library for deploying on BattleChain and adopting Safe Harbor agreements. Mirrors cyfrin/battlechain-lib (Solidity).",
+  "license": "MIT OR Apache-2.0",
+  "homepage": "https://github.com/Cyfrin/battlechain-lib/tree/main/packages/battlechain-lib-js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cyfrin/battlechain-lib.git",
+    "directory": "packages/battlechain-lib-js"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENCE-MIT",
+    "LICENCE-APACHE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "gen-abi": "tsx tools/gen-abi.ts",
+    "gen-config": "tsx tools/gen-config.ts",
+    "gen": "npm run gen-abi && npm run gen-config",
+    "lint": "oxlint",
+    "typecheck": "tsc --noEmit",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "peerDependencies": {
+    "ethers": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "ethers": "^6.16.0",
+    "oxlint": "1.71.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "keywords": [
+    "battlechain",
+    "safe-harbor",
+    "ethereum",
+    "hardhat",
+    "ethers"
+  ]
+}

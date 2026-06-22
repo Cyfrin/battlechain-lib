@@ -1,0 +1,26 @@
+# Run formatter
+format:
+    uv run ruff check --select I --fix
+    uv run ruff check . --fix
+
+# Run formatter - no fix
+format-check:
+    uv run ruff check --select I 
+    uv run ruff check .
+
+test:
+    uv run pytest
+
+typecheck:
+    uvx ty check
+
+# Regenerate battlechain/abi.py from ../../abis/*.json
+gen-abi:
+    uv run python tools/gen_abi.py
+
+# Regenerate battlechain/_contract_data.py from ../../deployments.json
+gen-config:
+    uv run python tools/gen_config.py
+
+# Regenerate all generated modules (ABIs + contract data)
+gen: gen-abi gen-config

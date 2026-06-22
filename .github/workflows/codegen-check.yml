@@ -1,0 +1,52 @@
+name: Codegen staleness guard
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  codegen-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+          submodules: recursive
+
+      - uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
+        with:
+          node-version: 22
+
+      - uses: foundry-rs/foundry-toolchain@c7450ba673e133f5ee30098b3b54f444d3a2ca2d # v1.8.0
+
+      - uses: astral-sh/setup-uv@fac544c07dec837d0ccb6301d7b5580bf5edae39 # v8.2.0
+
+      - name: Regenerate canonical artifacts
+        run: |
+          forge build
+          node scripts/codegen.mjs
+
+      - name: Regenerate JS package sources
+        working-directory: packages/battlechain-lib-js
+        run: |
+          npm ci
+          npm run gen
+
+      - name: Regenerate Python package sources
+        working-directory: packages/battlechain-lib-py
+        run: |
+          uv sync
+          uv run python tools/gen_abi.py
+          uv run python tools/gen_config.py
+
+      - name: Fail on any drift
+        run: |
+          git add --intent-to-add -A
+          if ! git diff --exit-code; then
+            echo "::error::Generated artifacts are stale. Run 'forge build && node scripts/codegen.mjs', then 'npm run gen' in packages/battlechain-lib-js and 'just gen' in packages/battlechain-lib-py, and commit the result."
+            exit 1
+          fi

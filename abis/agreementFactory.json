@@ -1,0 +1,176 @@
+[
+  {
+    "type": "function",
+    "name": "create",
+    "inputs": [
+      {
+        "name": "details",
+        "type": "tuple",
+        "internalType": "struct AgreementDetails",
+        "components": [
+          {
+            "name": "protocolName",
+            "type": "string",
+            "internalType": "string"
+          },
+          {
+            "name": "contactDetails",
+            "type": "tuple[]",
+            "internalType": "struct Contact[]",
+            "components": [
+              {
+                "name": "name",
+                "type": "string",
+                "internalType": "string"
+              },
+              {
+                "name": "contact",
+                "type": "string",
+                "internalType": "string"
+              }
+            ]
+          },
+          {
+            "name": "chains",
+            "type": "tuple[]",
+            "internalType": "struct BcChain[]",
+            "components": [
+              {
+                "name": "assetRecoveryAddress",
+                "type": "string",
+                "internalType": "string"
+              },
+              {
+                "name": "accounts",
+                "type": "tuple[]",
+                "internalType": "struct BcAccount[]",
+                "components": [
+                  {
+                    "name": "accountAddress",
+                    "type": "string",
+                    "internalType": "string"
+                  },
+                  {
+                    "name": "childContractScope",
+                    "type": "uint8",
+                    "internalType": "enum ChildContractScope"
+                  }
+                ]
+              },
+              {
+                "name": "caip2ChainId",
+                "type": "string",
+                "internalType": "string"
+              }
+            ]
+          },
+          {
+            "name": "bountyTerms",
+            "type": "tuple",
+            "internalType": "struct BountyTerms",
+            "components": [
+              {
+                "name": "bountyPercentage",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "bountyCapUsd",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "retainable",
+                "type": "bool",
+                "internalType": "bool"
+              },
+              {
+                "name": "identity",
+                "type": "uint8",
+                "internalType": "enum IdentityRequirements"
+              },
+              {
+                "name": "diligenceRequirements",
+                "type": "string",
+                "internalType": "string"
+              },
+              {
+                "name": "aggregateBountyCapUsd",
+                "type": "uint256",
+                "internalType": "uint256"
+              }
+            ]
+          },
+          {
+            "name": "agreementURI",
+            "type": "string",
+            "internalType": "string"
+          }
+        ]
+      },
+      {
+        "name": "owner",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "salt",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getBattleChainCaip2ChainId",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getRegistry",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "isAgreementContract",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  }
+]

@@ -1,0 +1,47 @@
+# Byte-compiled / cached
+__pycache__/
+battlechain/__pycache__/
+*.py[cod]
+*$py.class
+
+# Build / distribution
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ty_cache/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets — never commit these
+.env
+.env.*
+!.env.example
+
+# Boa / Moccasin artifacts (in case contributors run boa scripts here)
+.moccasin/
+out/
