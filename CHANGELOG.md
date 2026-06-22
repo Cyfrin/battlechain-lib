@@ -12,6 +12,19 @@ For the 1.0.0 milestone the three packages are released together; afterwards the
 version independently (tags `v*` for `@cyfrin/battlechain-lib`, `js-v*` for
 `@cyfrin/battlechain-lib-js`, `py-v*` for `battlechain-lib-py`).
 
+## [1.1.1] - 2026-06-22
+
+### Fixed
+
+- Corrected the mainnet (626) implementation addresses in `BCConfig.sol` for the
+  SafeHarbor registry, agreement factory, and attack registry. They were stale
+  relative to the live proxies (which were upgraded): the proxies delegate to
+  `0x96d9cCEf…`, `0xF52b4B00…`, and `0x2d226C9f…` (verified on-chain via the
+  EIP-1967 implementation slot), not the previously recorded `0xBFF0…`, `0x8d4f…`,
+  `0x03A3…`. Regenerated `deployments.json` and the js/py packages. Runtime
+  behavior is unaffected — the libraries call the proxies; this corrects the
+  recorded implementation addresses used for docs and explorer verification.
+
 ## [1.1.0] - 2026-06-22
 
 The Solidity interfaces are now sourced from the contracts repository instead of

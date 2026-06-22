@@ -1,6 +1,6 @@
 {
   "name": "@cyfrin/battlechain-lib-js",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "JS/TS library for deploying on BattleChain and adopting Safe Harbor agreements. Mirrors cyfrin/battlechain-lib (Solidity).",
   "license": "MIT OR Apache-2.0",
   "homepage": "https://github.com/Cyfrin/battlechain-lib/tree/main/packages/battlechain-lib-js",
