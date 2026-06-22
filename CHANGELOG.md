@@ -67,6 +67,8 @@ monorepo with a single source of truth for contract addresses and ABIs.
 - `@cyfrin/battlechain-lib` no longer ships a TypeScript/JavaScript layer. The package
   is now Solidity source plus the language-neutral data artifacts (`deployments.json`
   and `abis/`) only. JavaScript/TypeScript users should use `@cyfrin/battlechain-lib-js`.
+- All three packages are dual-licensed `MIT OR Apache-2.0`. `@cyfrin/battlechain-lib`
+  previously declared MIT only; it now ships both `LICENCE-MIT` and `LICENCE-APACHE`.
 
 ### Notes
 

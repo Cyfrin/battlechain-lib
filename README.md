@@ -169,3 +169,7 @@ forge build       # Build
 forge test        # Run tests
 forge fmt         # Format
 ```
+
+## License
+
+Dual-licensed under [MIT](./LICENCE-MIT) and [Apache-2.0](./LICENCE-APACHE) at your option.

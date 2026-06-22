@@ -12,7 +12,9 @@
     "/src/**/*.sol",
     "!/src/**/mocks/**/*",
     "/deployments.json",
-    "/abis/**/*.json"
+    "/abis/**/*.json",
+    "/LICENCE-MIT",
+    "/LICENCE-APACHE"
   ],
   "scripts": {
     "build": "forge build",
@@ -36,7 +38,7 @@
     "deployment"
   ],
   "author": "Cyfrin <security@cyfrin.io>",
-  "license": "MIT",
+  "license": "MIT OR Apache-2.0",
   "bugs": {
     "url": "https://github.com/cyfrin/battlechain-lib/issues"
   },
