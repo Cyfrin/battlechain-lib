@@ -245,6 +245,10 @@ describe("ABI shape", () => {
     expect(names).toContain("goToProduction");
     expect(names).toContain("approveAttack");
   });
+  it("MOCK_REGISTRY_MODERATOR_ABI exposes approveAttack", () => {
+    const names = bc.MOCK_REGISTRY_MODERATOR_ABI.map((fn: any) => fn.name);
+    expect(names).toContain("approveAttack");
+  });
 });
 
 // -----------------------------------------------------------------------------

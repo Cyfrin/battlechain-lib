@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cyfrin/battlechain-lib.git"
+    "url": "https://github.com/Cyfrin/battlechain-lib"
   },
   "keywords": [
     "solidity",
@@ -40,7 +40,7 @@
   "author": "Cyfrin <security@cyfrin.io>",
   "license": "MIT OR Apache-2.0",
   "bugs": {
-    "url": "https://github.com/cyfrin/battlechain-lib/issues"
+    "url": "https://github.com/Cyfrin/battlechain-lib/issues"
   },
   "homepage": "https://docs.battlechain.com"
 }

@@ -74,6 +74,7 @@ export {
   ATTACK_REGISTRY_ABI,
   REGISTRY_ABI,
   DEPLOYER_ABI,
+  MOCK_REGISTRY_MODERATOR_ABI,
 } from "./abi.js";
 
 // Builders

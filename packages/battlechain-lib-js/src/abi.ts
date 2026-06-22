@@ -2041,3 +2041,20 @@ export const DEPLOYER_ABI = [
     "stateMutability": "payable"
   }
 ] as const;
+
+// Source: abis/registryModerator.json
+export const MOCK_REGISTRY_MODERATOR_ABI = [
+  {
+    "type": "function",
+    "name": "approveAttack",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  }
+] as const;

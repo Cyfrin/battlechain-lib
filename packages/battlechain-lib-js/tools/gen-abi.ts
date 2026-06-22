@@ -22,6 +22,7 @@ const ARTIFACTS: Record<string, string> = {
   attackRegistry: "ATTACK_REGISTRY_ABI",
   registry: "REGISTRY_ABI",
   deployer: "DEPLOYER_ABI",
+  registryModerator: "MOCK_REGISTRY_MODERATOR_ABI",
 };
 
 const DEFAULT_ABIS_PATH = path.resolve(__dirname, "..", "..", "..", "abis");

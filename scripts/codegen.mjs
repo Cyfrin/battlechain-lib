@@ -182,8 +182,7 @@ console.log("wrote deployments.json");
 
 // ABIs are sourced from the deployed battlechain-safe-harbor-contracts interfaces (the source of
 // truth), compiled into out/ by forge build. Output filenames are kept stable so downstream
-// consumers' constant names do not change. approveAttack now lives in IAttackRegistry, so the
-// former registryModerator.json output is gone.
+// consumers' constant names do not change.
 const abiFiles = [
   { dir: "IAgreementFactory.sol", name: "IAgreementFactory", file: "agreementFactory.json" },
   { dir: "IAgreement.sol", name: "IAgreement", file: "agreement.json" },
@@ -196,6 +195,15 @@ for (const { dir, name, file } of abiFiles) {
   const abi = readAbi(dir, name);
   writeFileSync(join(ABIS, file), `${formatAbiJson(abi)}\n`);
 }
-console.log(`wrote abis/ (${abiFiles.length} files)`);
+
+// registryModerator.json: the testnet MockRegistryModerator's approveAttack entrypoint. It exposes
+// the same approveAttack(address) the registry's moderator calls (IAttackRegistry.approveAttack), so
+// we derive the ABI from that interface rather than compiling the test mock or hand-writing it.
+const moderatorAbi = readAbi("IAttackRegistry.sol", "IAttackRegistry").filter(
+  (entry) => entry.type === "function" && entry.name === "approveAttack",
+);
+writeFileSync(join(ABIS, "registryModerator.json"), `${formatAbiJson(moderatorAbi)}\n`);
+
+console.log(`wrote abis/ (${abiFiles.length + 1} files)`);
 
 console.log("codegen complete");
