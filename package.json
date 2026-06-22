@@ -26,7 +26,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cyfrin/battlechain-lib.git"
+    "url": "https://github.com/Cyfrin/battlechain-lib"
   },
   "keywords": [
     "solidity",
