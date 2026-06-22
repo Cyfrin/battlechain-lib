@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.bc_deployments.json
+.env
+.env.local
+*.log
+coverage/
+.DS_Store
+
+# Generated sources are committed so the codegen staleness guard can diff them.
+!src/abi.ts
+!src/contractData.gen.ts

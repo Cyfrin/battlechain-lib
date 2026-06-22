@@ -1,0 +1,15 @@
+[
+  {
+    "type": "function",
+    "name": "approveAttack",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  }
+]

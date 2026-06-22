@@ -1,8 +1,10 @@
 name: Publish to npm
 
+# Tag-driven so it can't cross-fire with the js-v*/py-v* tags in this monorepo.
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*'
 
 permissions:
   contents: read

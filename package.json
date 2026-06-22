@@ -1,27 +1,27 @@
 {
   "name": "@cyfrin/battlechain-lib",
   "description": "Foundry library for deploying on BattleChain and adopting Safe Harbor agreements",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./src/*": "./src/*"
+    "./src/*": "./src/*",
+    "./deployments.json": "./deployments.json",
+    "./abis/*": "./abis/*"
   },
   "files": [
     "/src/**/*.sol",
     "!/src/**/mocks/**/*",
-    "/dist/**/*"
+    "/deployments.json",
+    "/abis/**/*.json",
+    "/LICENCE-MIT",
+    "/LICENCE-APACHE"
   ],
   "scripts": {
     "build": "forge build",
-    "build:ts": "node scripts/codegen.mjs && tsc -p tsconfig.build.json",
+    "codegen": "forge build && node scripts/codegen.mjs",
     "test": "forge test",
     "lint": "forge fmt --check",
     "lint:fix": "forge fmt",
-    "prepublishOnly": "npm run build:ts",
     "publish:npm": "npm publish --access public"
   },
   "repository": {
@@ -38,15 +38,9 @@
     "deployment"
   ],
   "author": "Cyfrin <security@cyfrin.io>",
-  "license": "MIT",
+  "license": "MIT OR Apache-2.0",
   "bugs": {
     "url": "https://github.com/cyfrin/battlechain-lib/issues"
   },
-  "homepage": "https://docs.battlechain.com",
-  "dependencies": {
-    "viem": "^2.43.0"
-  },
-  "devDependencies": {
-    "typescript": "~5.8.0"
-  }
+  "homepage": "https://docs.battlechain.com"
 }
