@@ -13,10 +13,10 @@ import {
     BountyTerms,
     IdentityRequirements
 } from "./types/AgreementTypes.sol";
-import { IAgreementFactory } from "./interfaces/IAgreementFactory.sol";
-import { IAgreement } from "./interfaces/IAgreement.sol";
-import { IAttackRegistry } from "./interfaces/IAttackRegistry.sol";
-import { IBCSafeHarborRegistry } from "./interfaces/IBCSafeHarborRegistry.sol";
+import { IAgreementFactory } from "@battlechain-contracts/interface/IAgreementFactory.sol";
+import { IAgreement } from "@battlechain-contracts/interface/IAgreement.sol";
+import { IAttackRegistry } from "@battlechain-contracts/interface/IAttackRegistry.sol";
+import { IBattleChainSafeHarborRegistry } from "@battlechain-contracts/interface/IBattleChainSafeHarborRegistry.sol";
 
 /// @notice Agreement builder and registry helpers for BattleChain Safe Harbor.
 abstract contract BCSafeHarbor is BCBase {
@@ -66,9 +66,7 @@ abstract contract BCSafeHarbor is BCBase {
         returns (BcChain memory)
     {
         return BcChain({
-            assetRecoveryAddress: vm.toString(recoveryAddr),
-            accounts: buildAccounts(contracts),
-            caip2ChainId: caip2Id
+            assetRecoveryAddress: vm.toString(recoveryAddr), accounts: buildAccounts(contracts), caip2ChainId: caip2Id
         });
     }
 
@@ -153,7 +151,7 @@ abstract contract BCSafeHarbor is BCBase {
     /// @notice Adopts an agreement in the BattleChain Safe Harbor Registry.
     // aderyn-ignore-next-line(internal-function-used-once)
     function adoptAgreement(address agreementAddress) internal {
-        IBCSafeHarborRegistry(_bcRegistry()).adoptSafeHarbor(agreementAddress);
+        IBattleChainSafeHarborRegistry(_bcRegistry()).adoptSafeHarbor(agreementAddress);
     }
 
     /// @notice Sets the commitment window on an agreement.

@@ -180,13 +180,16 @@ console.log("wrote deployments.json");
 // Generate abis/<name>.json
 // ---------------------------------------------------------------------------
 
+// ABIs are sourced from the deployed battlechain-safe-harbor-contracts interfaces (the source of
+// truth), compiled into out/ by forge build. Output filenames are kept stable so downstream
+// consumers' constant names do not change. approveAttack now lives in IAttackRegistry, so the
+// former registryModerator.json output is gone.
 const abiFiles = [
   { dir: "IAgreementFactory.sol", name: "IAgreementFactory", file: "agreementFactory.json" },
   { dir: "IAgreement.sol", name: "IAgreement", file: "agreement.json" },
   { dir: "IAttackRegistry.sol", name: "IAttackRegistry", file: "attackRegistry.json" },
-  { dir: "IBCSafeHarborRegistry.sol", name: "IBCSafeHarborRegistry", file: "registry.json" },
-  { dir: "IBCDeployer.sol", name: "IBCDeployer", file: "deployer.json" },
-  { dir: "IRegistryModerator.sol", name: "IRegistryModerator", file: "registryModerator.json" },
+  { dir: "IBattleChainSafeHarborRegistry.sol", name: "IBattleChainSafeHarborRegistry", file: "registry.json" },
+  { dir: "IBattleChainDeployer.sol", name: "IBattleChainDeployer", file: "deployer.json" },
 ];
 
 for (const { dir, name, file } of abiFiles) {

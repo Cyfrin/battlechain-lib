@@ -6,7 +6,7 @@
 
 import { Contract, type Signer } from "ethers";
 
-import { MOCK_REGISTRY_MODERATOR_ABI } from "./abi.js";
+import { ATTACK_REGISTRY_ABI } from "./abi.js";
 import * as bcContracts from "./contracts.js";
 import * as config from "./config.js";
 import { DEFAULT_COMMITMENT_DAYS } from "./builders.js";
@@ -146,7 +146,7 @@ export async function approveAttackRequest(
   }
   const contract = new Contract(
     moderator,
-    MOCK_REGISTRY_MODERATOR_ABI as unknown as any[],
+    ATTACK_REGISTRY_ABI as unknown as any[],
     signer,
   );
   const tx = await contract["approveAttack"](agreementAddress);

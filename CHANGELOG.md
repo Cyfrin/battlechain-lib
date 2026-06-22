@@ -12,6 +12,32 @@ For the 1.0.0 milestone the three packages are released together; afterwards the
 version independently (tags `v*` for `@cyfrin/battlechain-lib`, `js-v*` for
 `@cyfrin/battlechain-lib-js`, `py-v*` for `battlechain-lib-py`).
 
+## [1.1.0] - 2026-06-22
+
+The Solidity interfaces are now sourced from the contracts repository instead of
+being maintained in this library, so the libraries are downstream of the contracts.
+
+### Changed
+
+- The Solidity interfaces (`IAgreement`, `IAgreementFactory`, `IAttackRegistry`,
+  `IBCDeployer`, `IBCSafeHarborRegistry`) are now sourced from the
+  `battlechain-safe-harbor-contracts` submodule (`lib/battlechain-safe-harbor-contracts`)
+  rather than hand-maintained copies in `src/interfaces/`. The contracts repository is
+  the single source of truth for the interfaces.
+- The `abis/*.json` artifacts are enriched, regenerated from the contracts-sourced
+  interfaces.
+
+### Removed
+
+- `IRegistryModerator` is dropped. The `approveAttack` entrypoint now lives in
+  `attackRegistry` (and its ABI), so the separate moderator interface and
+  `abis/registryModerator.json` are gone.
+
+### Notes
+
+- All three packages (`@cyfrin/battlechain-lib`, `@cyfrin/battlechain-lib-js`,
+  `battlechain-lib-py`) are released together at 1.1.0.
+
 ## [1.0.0] - 2026-06-22
 
 First stable release, and the consolidation of the BattleChain libraries into one
@@ -75,4 +101,5 @@ monorepo with a single source of truth for contract addresses and ABIs.
 - This is the first published release of `@cyfrin/battlechain-lib-js`.
 - `@cyfrin/battlechain-lib` jumps from 0.1.x to 1.0.0 as part of the coordinated milestone.
 
+[1.1.0]: https://github.com/Cyfrin/battlechain-lib/releases/tag/v1.1.0
 [1.0.0]: https://github.com/Cyfrin/battlechain-lib/releases/tag/v1.0.0

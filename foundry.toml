@@ -3,6 +3,9 @@ src = "src"
 out = "out"
 libs = ["lib"]
 ffi = true
+remappings = [
+    "@battlechain-contracts/=lib/battlechain-safe-harbor-contracts/src/",
+]
 
 fs_permissions = [
     { access = "read", path = "./broadcast" },
@@ -21,4 +24,6 @@ wrap_comments = true
 
 [lint]
 exclude_lints = ["mixed-case-variable"]
-ignore = ["test/**/*"]
+# AgreementTypes.sol is a pure re-export of the contracts' types; the aliased re-exports trip
+# the unused-import lint even though downstream files consume them.
+ignore = ["test/**/*", "src/types/AgreementTypes.sol"]

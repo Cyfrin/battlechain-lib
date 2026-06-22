@@ -34,7 +34,7 @@ AGREEMENT_FACTORY_ABI: list[dict[str, Any]] = [
                     {
                         "name": "chains",
                         "type": "tuple[]",
-                        "internalType": "struct BcChain[]",
+                        "internalType": "struct Chain[]",
                         "components": [
                             {
                                 "name": "assetRecoveryAddress",
@@ -44,7 +44,7 @@ AGREEMENT_FACTORY_ABI: list[dict[str, Any]] = [
                             {
                                 "name": "accounts",
                                 "type": "tuple[]",
-                                "internalType": "struct BcAccount[]",
+                                "internalType": "struct Account[]",
                                 "components": [
                                     {
                                         "name": "accountAddress",
@@ -132,7 +132,7 @@ AGREEMENT_ABI: list[dict[str, Any]] = [
             {
                 "name": "newAccounts",
                 "type": "tuple[]",
-                "internalType": "struct BcAccount[]",
+                "internalType": "struct Account[]",
                 "components": [
                     {"name": "accountAddress", "type": "string", "internalType": "string"},
                     {
@@ -153,13 +153,13 @@ AGREEMENT_ABI: list[dict[str, Any]] = [
             {
                 "name": "chains",
                 "type": "tuple[]",
-                "internalType": "struct BcChain[]",
+                "internalType": "struct Chain[]",
                 "components": [
                     {"name": "assetRecoveryAddress", "type": "string", "internalType": "string"},
                     {
                         "name": "accounts",
                         "type": "tuple[]",
-                        "internalType": "struct BcAccount[]",
+                        "internalType": "struct Account[]",
                         "components": [
                             {"name": "accountAddress", "type": "string", "internalType": "string"},
                             {
@@ -273,7 +273,7 @@ AGREEMENT_ABI: list[dict[str, Any]] = [
                     {
                         "name": "chains",
                         "type": "tuple[]",
-                        "internalType": "struct BcChain[]",
+                        "internalType": "struct Chain[]",
                         "components": [
                             {
                                 "name": "assetRecoveryAddress",
@@ -283,7 +283,7 @@ AGREEMENT_ABI: list[dict[str, Any]] = [
                             {
                                 "name": "accounts",
                                 "type": "tuple[]",
-                                "internalType": "struct BcAccount[]",
+                                "internalType": "struct Account[]",
                                 "components": [
                                     {
                                         "name": "accountAddress",
@@ -442,6 +442,108 @@ AGREEMENT_ABI: list[dict[str, Any]] = [
 ATTACK_REGISTRY_ABI: list[dict[str, Any]] = [
     {
         "type": "function",
+        "name": "approveAttack",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "authorizeAgreementOwner",
+        "inputs": [
+            {"name": "contractAddress", "type": "address", "internalType": "address"},
+            {"name": "newOwner", "type": "address", "internalType": "address"},
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "cancelPromotion",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "changeRegistryModerator",
+        "inputs": [{"name": "newModerator", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "getAgreementForContract",
+        "inputs": [{"name": "contractAddress", "type": "address", "internalType": "address"}],
+        "outputs": [{"name": "", "type": "address", "internalType": "address"}],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
+        "name": "getAgreementInfo",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [
+            {
+                "name": "",
+                "type": "tuple",
+                "internalType": "struct IAttackRegistry.AgreementInfo",
+                "components": [
+                    {"name": "attackModerator", "type": "address", "internalType": "address"},
+                    {"name": "deadlineTimestamp", "type": "uint256", "internalType": "uint256"},
+                    {
+                        "name": "promotionRequestedTimestamp",
+                        "type": "uint256",
+                        "internalType": "uint256",
+                    },
+                    {"name": "attackRequested", "type": "bool", "internalType": "bool"},
+                    {"name": "attackApproved", "type": "bool", "internalType": "bool"},
+                    {"name": "promoted", "type": "bool", "internalType": "bool"},
+                    {"name": "corrupted", "type": "bool", "internalType": "bool"},
+                    {"name": "isRegistered", "type": "bool", "internalType": "bool"},
+                ],
+            }
+        ],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
+        "name": "getAgreementState",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [
+            {"name": "", "type": "uint8", "internalType": "enum IAttackRegistry.ContractState"}
+        ],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
+        "name": "getAttackModerator",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [{"name": "", "type": "address", "internalType": "address"}],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
+        "name": "getAuthorizedOwner",
+        "inputs": [{"name": "contractAddress", "type": "address", "internalType": "address"}],
+        "outputs": [{"name": "", "type": "address", "internalType": "address"}],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
+        "name": "getRegistryModerator",
+        "inputs": [],
+        "outputs": [{"name": "", "type": "address", "internalType": "address"}],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
+        "name": "getSafeHarborRegistry",
+        "inputs": [],
+        "outputs": [{"name": "", "type": "address", "internalType": "address"}],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
         "name": "goToProduction",
         "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
         "outputs": [],
@@ -449,8 +551,115 @@ ATTACK_REGISTRY_ABI: list[dict[str, Any]] = [
     },
     {
         "type": "function",
+        "name": "instantCorrupt",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "instantPromote",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "isTopLevelContractUnderAttack",
+        "inputs": [{"name": "contractAddress", "type": "address", "internalType": "address"}],
+        "outputs": [{"name": "", "type": "bool", "internalType": "bool"}],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
+        "name": "markCorrupted",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "promote",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "registerContractForExistingAgreement",
+        "inputs": [{"name": "contractAddress", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "registerDeployment",
+        "inputs": [
+            {"name": "contractAddress", "type": "address", "internalType": "address"},
+            {"name": "deployer", "type": "address", "internalType": "address"},
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "rejectAttackRequest",
+        "inputs": [
+            {"name": "agreementAddress", "type": "address", "internalType": "address"},
+            {"name": "slashBond", "type": "bool", "internalType": "bool"},
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
         "name": "requestUnderAttack",
         "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "requestUnderAttackByNonAuthorized",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "requestUnderAttackForUnverifiedContracts",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "setSafeHarborRegistry",
+        "inputs": [{"name": "newRegistry", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "syncNewContracts",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "transferAttackModerator",
+        "inputs": [
+            {"name": "agreementAddress", "type": "address", "internalType": "address"},
+            {"name": "newModerator", "type": "address", "internalType": "address"},
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    },
+    {
+        "type": "function",
+        "name": "unregisterContractForExistingAgreement",
+        "inputs": [{"name": "contractAddress", "type": "address", "internalType": "address"}],
         "outputs": [],
         "stateMutability": "nonpayable",
     },
@@ -481,10 +690,31 @@ REGISTRY_ABI: list[dict[str, Any]] = [
     },
     {
         "type": "function",
+        "name": "getAttackRegistry",
+        "inputs": [],
+        "outputs": [{"name": "", "type": "address", "internalType": "address"}],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
         "name": "isAgreementValid",
         "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
         "outputs": [{"name": "", "type": "bool", "internalType": "bool"}],
         "stateMutability": "view",
+    },
+    {
+        "type": "function",
+        "name": "isChainValid",
+        "inputs": [{"name": "caip2ChainId", "type": "string", "internalType": "string"}],
+        "outputs": [{"name": "", "type": "bool", "internalType": "bool"}],
+        "stateMutability": "view",
+    },
+    {
+        "type": "function",
+        "name": "setAgreementFactory",
+        "inputs": [{"name": "factory", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
     },
 ]
 
@@ -579,7 +809,7 @@ DEPLOYER_ABI: list[dict[str, Any]] = [
             {
                 "name": "values",
                 "type": "tuple",
-                "internalType": "struct IBCDeployer.Values",
+                "internalType": "struct IBattleChainDeployer.Values",
                 "components": [
                     {"name": "constructorAmount", "type": "uint256", "internalType": "uint256"},
                     {"name": "initCallAmount", "type": "uint256", "internalType": "uint256"},
@@ -599,7 +829,7 @@ DEPLOYER_ABI: list[dict[str, Any]] = [
             {
                 "name": "values",
                 "type": "tuple",
-                "internalType": "struct IBCDeployer.Values",
+                "internalType": "struct IBattleChainDeployer.Values",
                 "components": [
                     {"name": "constructorAmount", "type": "uint256", "internalType": "uint256"},
                     {"name": "initCallAmount", "type": "uint256", "internalType": "uint256"},
@@ -618,7 +848,7 @@ DEPLOYER_ABI: list[dict[str, Any]] = [
             {
                 "name": "values",
                 "type": "tuple",
-                "internalType": "struct IBCDeployer.Values",
+                "internalType": "struct IBattleChainDeployer.Values",
                 "components": [
                     {"name": "constructorAmount", "type": "uint256", "internalType": "uint256"},
                     {"name": "initCallAmount", "type": "uint256", "internalType": "uint256"},
@@ -639,7 +869,7 @@ DEPLOYER_ABI: list[dict[str, Any]] = [
             {
                 "name": "values",
                 "type": "tuple",
-                "internalType": "struct IBCDeployer.Values",
+                "internalType": "struct IBattleChainDeployer.Values",
                 "components": [
                     {"name": "constructorAmount", "type": "uint256", "internalType": "uint256"},
                     {"name": "initCallAmount", "type": "uint256", "internalType": "uint256"},
@@ -697,7 +927,7 @@ DEPLOYER_ABI: list[dict[str, Any]] = [
             {
                 "name": "values",
                 "type": "tuple",
-                "internalType": "struct IBCDeployer.Values",
+                "internalType": "struct IBattleChainDeployer.Values",
                 "components": [
                     {"name": "constructorAmount", "type": "uint256", "internalType": "uint256"},
                     {"name": "initCallAmount", "type": "uint256", "internalType": "uint256"},
@@ -716,7 +946,7 @@ DEPLOYER_ABI: list[dict[str, Any]] = [
             {
                 "name": "values",
                 "type": "tuple",
-                "internalType": "struct IBCDeployer.Values",
+                "internalType": "struct IBattleChainDeployer.Values",
                 "components": [
                     {"name": "constructorAmount", "type": "uint256", "internalType": "uint256"},
                     {"name": "initCallAmount", "type": "uint256", "internalType": "uint256"},
@@ -736,7 +966,7 @@ DEPLOYER_ABI: list[dict[str, Any]] = [
             {
                 "name": "values",
                 "type": "tuple",
-                "internalType": "struct IBCDeployer.Values",
+                "internalType": "struct IBattleChainDeployer.Values",
                 "components": [
                     {"name": "constructorAmount", "type": "uint256", "internalType": "uint256"},
                     {"name": "initCallAmount", "type": "uint256", "internalType": "uint256"},
@@ -756,7 +986,7 @@ DEPLOYER_ABI: list[dict[str, Any]] = [
             {
                 "name": "values",
                 "type": "tuple",
-                "internalType": "struct IBCDeployer.Values",
+                "internalType": "struct IBattleChainDeployer.Values",
                 "components": [
                     {"name": "constructorAmount", "type": "uint256", "internalType": "uint256"},
                     {"name": "initCallAmount", "type": "uint256", "internalType": "uint256"},
@@ -776,7 +1006,7 @@ DEPLOYER_ABI: list[dict[str, Any]] = [
             {
                 "name": "values",
                 "type": "tuple",
-                "internalType": "struct IBCDeployer.Values",
+                "internalType": "struct IBattleChainDeployer.Values",
                 "components": [
                     {"name": "constructorAmount", "type": "uint256", "internalType": "uint256"},
                     {"name": "initCallAmount", "type": "uint256", "internalType": "uint256"},
@@ -795,7 +1025,7 @@ DEPLOYER_ABI: list[dict[str, Any]] = [
             {
                 "name": "values",
                 "type": "tuple",
-                "internalType": "struct IBCDeployer.Values",
+                "internalType": "struct IBattleChainDeployer.Values",
                 "components": [
                     {"name": "constructorAmount", "type": "uint256", "internalType": "uint256"},
                     {"name": "initCallAmount", "type": "uint256", "internalType": "uint256"},

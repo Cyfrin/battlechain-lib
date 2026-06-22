@@ -44,7 +44,7 @@ export const AGREEMENT_FACTORY_ABI = [
           {
             "name": "chains",
             "type": "tuple[]",
-            "internalType": "struct BcChain[]",
+            "internalType": "struct Chain[]",
             "components": [
               {
                 "name": "assetRecoveryAddress",
@@ -54,7 +54,7 @@ export const AGREEMENT_FACTORY_ABI = [
               {
                 "name": "accounts",
                 "type": "tuple[]",
-                "internalType": "struct BcAccount[]",
+                "internalType": "struct Account[]",
                 "components": [
                   {
                     "name": "accountAddress",
@@ -200,7 +200,7 @@ export const AGREEMENT_ABI = [
       {
         "name": "newAccounts",
         "type": "tuple[]",
-        "internalType": "struct BcAccount[]",
+        "internalType": "struct Account[]",
         "components": [
           {
             "name": "accountAddress",
@@ -225,7 +225,7 @@ export const AGREEMENT_ABI = [
       {
         "name": "chains",
         "type": "tuple[]",
-        "internalType": "struct BcChain[]",
+        "internalType": "struct Chain[]",
         "components": [
           {
             "name": "assetRecoveryAddress",
@@ -235,7 +235,7 @@ export const AGREEMENT_ABI = [
           {
             "name": "accounts",
             "type": "tuple[]",
-            "internalType": "struct BcAccount[]",
+            "internalType": "struct Account[]",
             "components": [
               {
                 "name": "accountAddress",
@@ -431,7 +431,7 @@ export const AGREEMENT_ABI = [
           {
             "name": "chains",
             "type": "tuple[]",
-            "internalType": "struct BcChain[]",
+            "internalType": "struct Chain[]",
             "components": [
               {
                 "name": "assetRecoveryAddress",
@@ -441,7 +441,7 @@ export const AGREEMENT_ABI = [
               {
                 "name": "accounts",
                 "type": "tuple[]",
-                "internalType": "struct BcAccount[]",
+                "internalType": "struct Account[]",
                 "components": [
                   {
                     "name": "accountAddress",
@@ -700,6 +700,226 @@ export const AGREEMENT_ABI = [
 export const ATTACK_REGISTRY_ABI = [
   {
     "type": "function",
+    "name": "approveAttack",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "authorizeAgreementOwner",
+    "inputs": [
+      {
+        "name": "contractAddress",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "newOwner",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "cancelPromotion",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "changeRegistryModerator",
+    "inputs": [
+      {
+        "name": "newModerator",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getAgreementForContract",
+    "inputs": [
+      {
+        "name": "contractAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getAgreementInfo",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct IAttackRegistry.AgreementInfo",
+        "components": [
+          {
+            "name": "attackModerator",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "deadlineTimestamp",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "promotionRequestedTimestamp",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "attackRequested",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "attackApproved",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "promoted",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "corrupted",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "isRegistered",
+            "type": "bool",
+            "internalType": "bool"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getAgreementState",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint8",
+        "internalType": "enum IAttackRegistry.ContractState"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getAttackModerator",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getAuthorizedOwner",
+    "inputs": [
+      {
+        "name": "contractAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getRegistryModerator",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getSafeHarborRegistry",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "goToProduction",
     "inputs": [
       {
@@ -713,10 +933,213 @@ export const ATTACK_REGISTRY_ABI = [
   },
   {
     "type": "function",
+    "name": "instantCorrupt",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "instantPromote",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "isTopLevelContractUnderAttack",
+    "inputs": [
+      {
+        "name": "contractAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "markCorrupted",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "promote",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "registerContractForExistingAgreement",
+    "inputs": [
+      {
+        "name": "contractAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "registerDeployment",
+    "inputs": [
+      {
+        "name": "contractAddress",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "deployer",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "rejectAttackRequest",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "slashBond",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "requestUnderAttack",
     "inputs": [
       {
         "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "requestUnderAttackByNonAuthorized",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "requestUnderAttackForUnverifiedContracts",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setSafeHarborRegistry",
+    "inputs": [
+      {
+        "name": "newRegistry",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "syncNewContracts",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "transferAttackModerator",
+    "inputs": [
+      {
+        "name": "agreementAddress",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "newModerator",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "unregisterContractForExistingAgreement",
+    "inputs": [
+      {
+        "name": "contractAddress",
         "type": "address",
         "internalType": "address"
       }
@@ -775,6 +1198,19 @@ export const REGISTRY_ABI = [
   },
   {
     "type": "function",
+    "name": "getAttackRegistry",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "isAgreementValid",
     "inputs": [
       {
@@ -791,6 +1227,38 @@ export const REGISTRY_ABI = [
       }
     ],
     "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "isChainValid",
+    "inputs": [
+      {
+        "name": "caip2ChainId",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "setAgreementFactory",
+    "inputs": [
+      {
+        "name": "factory",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
   }
 ] as const;
 
@@ -1019,7 +1487,7 @@ export const DEPLOYER_ABI = [
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -1065,7 +1533,7 @@ export const DEPLOYER_ABI = [
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -1106,7 +1574,7 @@ export const DEPLOYER_ABI = [
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -1157,7 +1625,7 @@ export const DEPLOYER_ABI = [
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -1299,7 +1767,7 @@ export const DEPLOYER_ABI = [
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -1340,7 +1808,7 @@ export const DEPLOYER_ABI = [
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -1386,7 +1854,7 @@ export const DEPLOYER_ABI = [
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -1432,7 +1900,7 @@ export const DEPLOYER_ABI = [
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -1478,7 +1946,7 @@ export const DEPLOYER_ABI = [
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -1519,7 +1987,7 @@ export const DEPLOYER_ABI = [
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -1571,22 +2039,5 @@ export const DEPLOYER_ABI = [
       }
     ],
     "stateMutability": "payable"
-  }
-] as const;
-
-// Source: abis/registryModerator.json
-export const MOCK_REGISTRY_MODERATOR_ABI = [
-  {
-    "type": "function",
-    "name": "approveAttack",
-    "inputs": [
-      {
-        "name": "agreementAddress",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
   }
 ] as const;
