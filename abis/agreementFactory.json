@@ -33,7 +33,7 @@
           {
             "name": "chains",
             "type": "tuple[]",
-            "internalType": "struct BcChain[]",
+            "internalType": "struct Chain[]",
             "components": [
               {
                 "name": "assetRecoveryAddress",
@@ -43,7 +43,7 @@
               {
                 "name": "accounts",
                 "type": "tuple[]",
-                "internalType": "struct BcAccount[]",
+                "internalType": "struct Account[]",
                 "components": [
                   {
                     "name": "accountAddress",

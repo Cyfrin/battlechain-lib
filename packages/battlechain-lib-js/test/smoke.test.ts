@@ -239,10 +239,15 @@ describe("ABI shape", () => {
     const names = bc.REGISTRY_ABI.map((fn: any) => fn.name);
     expect(names).toContain("adoptSafeHarbor");
   });
-  it("ATTACK_REGISTRY_ABI has requestUnderAttack and goToProduction", () => {
+  it("ATTACK_REGISTRY_ABI has requestUnderAttack, goToProduction, and approveAttack", () => {
     const names = bc.ATTACK_REGISTRY_ABI.map((fn: any) => fn.name);
     expect(names).toContain("requestUnderAttack");
     expect(names).toContain("goToProduction");
+    expect(names).toContain("approveAttack");
+  });
+  it("MOCK_REGISTRY_MODERATOR_ABI exposes approveAttack", () => {
+    const names = bc.MOCK_REGISTRY_MODERATOR_ABI.map((fn: any) => fn.name);
+    expect(names).toContain("approveAttack");
   });
 });
 
@@ -324,9 +329,5 @@ describe("MockRegistryModerator", () => {
     expect(config.mockRegistryModeratorAddress(626)).toBeNull();
     expect(config.mockRegistryModeratorAddress(1)).toBeNull();
     expect(config.mockRegistryModeratorAddress(31337)).toBeNull();
-  });
-  it("ABI exposes approveAttack", () => {
-    const names = bc.MOCK_REGISTRY_MODERATOR_ABI.map((fn: any) => fn.name);
-    expect(names).toContain("approveAttack");
   });
 });

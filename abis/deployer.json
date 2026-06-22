@@ -222,7 +222,7 @@
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -268,7 +268,7 @@
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -309,7 +309,7 @@
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -360,7 +360,7 @@
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -502,7 +502,7 @@
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -543,7 +543,7 @@
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -589,7 +589,7 @@
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -635,7 +635,7 @@
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -681,7 +681,7 @@
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",
@@ -722,7 +722,7 @@
       {
         "name": "values",
         "type": "tuple",
-        "internalType": "struct IBCDeployer.Values",
+        "internalType": "struct IBattleChainDeployer.Values",
         "components": [
           {
             "name": "constructorAmount",

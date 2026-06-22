@@ -2,6 +2,15 @@
 
 See the [monorepo CHANGELOG](../../CHANGELOG.md) for the full history.
 
+## [1.1.0] - 2026-06-22
+
+- Dropped the separate `MOCK_REGISTRY_MODERATOR_ABI`. The on-chain
+  `approveAttack(address)` function now rides on `ATTACK_REGISTRY_ABI`, so
+  `approveAttackRequest` builds its contract with that ABI instead.
+- Regenerated ABIs from the canonical contracts: `ATTACK_REGISTRY_ABI` gained
+  `approveAttack` plus query methods, and `REGISTRY_ABI` now reflects the fuller
+  `IBattleChainSafeHarborRegistry` surface.
+
 ## [1.0.0] - 2026-06-22
 
 First published release.
