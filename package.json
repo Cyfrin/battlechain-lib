@@ -4,26 +4,22 @@
   "version": "1.0.0",
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    },
-    "./src/*": "./src/*"
+    "./src/*": "./src/*",
+    "./deployments.json": "./deployments.json",
+    "./abis/*": "./abis/*"
   },
   "files": [
     "/src/**/*.sol",
     "!/src/**/mocks/**/*",
-    "/dist/**/*",
     "/deployments.json",
     "/abis/**/*.json"
   ],
   "scripts": {
     "build": "forge build",
-    "build:ts": "node scripts/codegen.mjs && tsc -p tsconfig.build.json",
+    "codegen": "forge build && node scripts/codegen.mjs",
     "test": "forge test",
     "lint": "forge fmt --check",
     "lint:fix": "forge fmt",
-    "prepublishOnly": "npm run build:ts",
     "publish:npm": "npm publish --access public"
   },
   "repository": {
@@ -44,11 +40,5 @@
   "bugs": {
     "url": "https://github.com/cyfrin/battlechain-lib/issues"
   },
-  "homepage": "https://docs.battlechain.com",
-  "dependencies": {
-    "viem": "^2.43.0"
-  },
-  "devDependencies": {
-    "typescript": "~5.8.0"
-  }
+  "homepage": "https://docs.battlechain.com"
 }

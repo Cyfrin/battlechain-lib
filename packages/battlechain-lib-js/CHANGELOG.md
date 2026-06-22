@@ -1,4 +1,4 @@
-# Changelog — battlechain-lib-js
+# Changelog — @cyfrin/battlechain-lib-js
 
 See the [monorepo CHANGELOG](../../CHANGELOG.md) for the full history.
 

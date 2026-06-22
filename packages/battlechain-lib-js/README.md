@@ -1,4 +1,4 @@
-# battlechain-lib-js
+# @cyfrin/battlechain-lib-js
 
 JS/TS library for deploying on [BattleChain](https://docs.battlechain.com) and adopting
 [Safe Harbor](https://docs.battlechain.com) agreements. Mirrors
@@ -20,9 +20,9 @@ scripts alike.
 ## Installation
 
 ```bash
-npm install battlechain-lib-js ethers
+npm install @cyfrin/battlechain-lib-js ethers
 # or
-pnpm add battlechain-lib-js ethers
+pnpm add @cyfrin/battlechain-lib-js ethers
 ```
 
 `ethers` v6 is a peer dependency.
@@ -38,7 +38,7 @@ creates a Safe Harbor agreement, adopts it, and requests attack mode:
 import { ethers } from "ethers";
 import { network } from "hardhat";
 
-import * as bc from "battlechain-lib-js";
+import * as bc from "@cyfrin/battlechain-lib-js";
 import VaultArtifact from "../artifacts/src/MyVault.sol/MyVault.json" with { type: "json" };
 
 const { ethers: hethers } = await network.connect({ network: "battlechain", chainType: "l1" });
@@ -108,7 +108,7 @@ non-Hardhat scripts (parity with battlechain-lib-py).
 For local Anvil/Hardhat or unsupported chains, register addresses with `setOverrides`:
 
 ```ts
-import * as bc from "battlechain-lib-js";
+import * as bc from "@cyfrin/battlechain-lib-js";
 
 bc.setOverrides(31337, {
   registry: "0x…",

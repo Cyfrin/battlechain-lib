@@ -1,5 +1,5 @@
 /**
- * battlechain-lib-js — JS/TS library for deploying on BattleChain and adopting
+ * @cyfrin/battlechain-lib-js — JS/TS library for deploying on BattleChain and adopting
  * Safe Harbor agreements. Mirrors cyfrin/battlechain-lib (Solidity) and
  * cyfrin/battlechain-lib-py (Python).
  */

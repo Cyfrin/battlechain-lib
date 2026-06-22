@@ -3,14 +3,14 @@
 All notable changes to the BattleChain libraries are documented here.
 
 This repository is a monorepo: the canonical Solidity library lives at the root, and
-the client libraries live under `packages/` (`battlechain-lib-js`, `battlechain-lib-py`).
+the client libraries live under `packages/` (`@cyfrin/battlechain-lib-js`, `battlechain-lib-py`).
 All addresses and ABIs are generated from a single source of truth — see
 [`deployments.json`](./deployments.json) and [`abis/`](./abis).
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 For the 1.0.0 milestone the three packages are released together; afterwards they
 version independently (tags `v*` for `@cyfrin/battlechain-lib`, `js-v*` for
-`battlechain-lib-js`, `py-v*` for `battlechain-lib-py`).
+`@cyfrin/battlechain-lib-js`, `py-v*` for `battlechain-lib-py`).
 
 ## [1.0.0] - 2026-06-22
 
@@ -21,7 +21,7 @@ monorepo with a single source of truth for contract addresses and ABIs.
 
 - `battlechain-lib` is now a monorepo:
   - canonical Solidity at the root (`@cyfrin/battlechain-lib` on npm),
-  - `packages/battlechain-lib-js` — `battlechain-lib-js` on npm (ethers v6),
+  - `packages/battlechain-lib-js` — `@cyfrin/battlechain-lib-js` on npm (ethers v6),
   - `packages/battlechain-lib-py` — `battlechain-lib-py` on PyPI.
 - The standalone `Cyfrin/battlechain-lib-js` and `Cyfrin/battlechain-lib-py`
   repositories are archived and redirect here.
@@ -43,11 +43,11 @@ monorepo with a single source of truth for contract addresses and ABIs.
 
 ### Fixed
 
-- `battlechain-lib-js` shipped stale testnet (627) addresses and had **no** mainnet
+- `@cyfrin/battlechain-lib-js` shipped stale testnet (627) addresses and had **no** mainnet
   (626) configuration — `getNetworkConfig(626)` threw. All addresses now match the
   canonical Solidity, and mainnet is fully supported.
-- Corrected the `battlechain-lib-js` Safe Harbor agreement URI and mainnet explorer host.
-- `battlechain-lib-js` linting referenced eslint, which was never installed; replaced
+- Corrected the `@cyfrin/battlechain-lib-js` Safe Harbor agreement URI and mainnet explorer host.
+- `@cyfrin/battlechain-lib-js` linting referenced eslint, which was never installed; replaced
   with oxlint.
 - `battlechain-lib-py` `config.py` / `createx_chains.py` were hand-maintained; they are
   now generated, removing the same drift risk.
@@ -62,9 +62,15 @@ monorepo with a single source of truth for contract addresses and ABIs.
 - `@cyfrin/battlechain-lib` now ships `deployments.json` and `abis/` in the published
   package.
 
+### Changed
+
+- `@cyfrin/battlechain-lib` no longer ships a TypeScript/JavaScript layer. The package
+  is now Solidity source plus the language-neutral data artifacts (`deployments.json`
+  and `abis/`) only. JavaScript/TypeScript users should use `@cyfrin/battlechain-lib-js`.
+
 ### Notes
 
-- This is the first published release of `battlechain-lib-js`.
+- This is the first published release of `@cyfrin/battlechain-lib-js`.
 - `@cyfrin/battlechain-lib` jumps from 0.1.x to 1.0.0 as part of the coordinated milestone.
 
 [1.0.0]: https://github.com/Cyfrin/battlechain-lib/releases/tag/v1.0.0

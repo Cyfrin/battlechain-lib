@@ -18,7 +18,7 @@ remappings = ["battlechain-lib/=lib/battlechain-lib/src/"]
 
 ### npm / Hardhat (in development)
 
-> **Note:** Hardhat support is still in development. The TypeScript exports and Solidity imports work, but the integration is not yet fully tested. Expect rough edges.
+> **Note:** Hardhat support is still in development. The Solidity imports work, but the integration is not yet fully tested. Expect rough edges.
 
 ```shell
 npm install @cyfrin/battlechain-lib
@@ -29,6 +29,41 @@ Add the remapping to your `hardhat.config` or `remappings.txt`:
 ```
 battlechain-lib/=node_modules/@cyfrin/battlechain-lib/src/
 ```
+
+This package ships Solidity source plus the language-neutral data artifacts
+(`deployments.json` and `abis/`) — it has no JavaScript/TypeScript API.
+JavaScript/TypeScript users should use
+[`@cyfrin/battlechain-lib-js`](https://www.npmjs.com/package/@cyfrin/battlechain-lib-js)
+instead, which exposes typed addresses, ABIs, and helpers.
+
+## Using the data artifacts (viem, etc.)
+
+`@cyfrin/battlechain-lib-js` (ethers) wraps the high-level flows. If you use
+**viem** — or any other tool — you don't need a wrapper: consume the
+`deployments.json` and `abis/` artifacts this package ships directly.
+
+```ts
+import { createPublicClient, getContract, http } from "viem";
+import deployments from "@cyfrin/battlechain-lib/deployments.json" with { type: "json" };
+import registryAbi from "@cyfrin/battlechain-lib/abis/registry.json" with { type: "json" };
+
+const testnet = deployments.networks["627"]; // or "626" for mainnet
+
+const client = createPublicClient({ transport: http("https://testnet.battlechain.com") });
+
+const registry = getContract({
+  address: testnet.registry as `0x${string}`,
+  abi: registryAbi,
+  client,
+});
+
+// e.g. look up an adopter's Safe Harbor agreement
+const agreement = await registry.read.getAgreement([adopter]);
+```
+
+`deployments.json` carries every address, chain ID, CAIP-2 id, the Safe Harbor
+URIs, explorer endpoints, and the CreateX chain lists for both networks. For full
+viem type inference, declare the imported ABI `as const`.
 
 ## Quick Start
 
