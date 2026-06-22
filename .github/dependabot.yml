@@ -1,0 +1,34 @@
+version: 2
+updates:
+  # JS SDK (npm)
+  - package-ecosystem: "npm"
+    directory: "/packages/battlechain-lib-js"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    groups:
+      js-dependencies:
+        patterns: ["*"]
+
+  # Python SDK (uv) — keep cooldown aligned with pyproject [tool.uv] exclude-newer
+  - package-ecosystem: "uv"
+    directory: "/packages/battlechain-lib-py"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    groups:
+      py-dependencies:
+        patterns: ["*"]
+
+  # GitHub Actions used by the monorepo workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    cooldown:
+      default-days: 7
+    groups:
+      actions:
+        patterns: ["*"]

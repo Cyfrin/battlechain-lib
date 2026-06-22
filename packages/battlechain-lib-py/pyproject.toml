@@ -50,3 +50,6 @@ dev = ["pytest>=8.0.0", "ruff>=0.6.0"]
 [tool.uv]
 managed = true
 package = true
+# Supply-chain cooldown: ignore dependency versions published in the last 7 days
+# (rolling window). Pair with the Dependabot uv cooldown so lock PRs stay resolvable.
+exclude-newer = "7 days"
