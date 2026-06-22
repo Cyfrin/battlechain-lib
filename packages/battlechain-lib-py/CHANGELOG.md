@@ -2,6 +2,12 @@
 
 See the [monorepo CHANGELOG](../../CHANGELOG.md) for the full history.
 
+## [1.1.1] - 2026-06-22
+
+- Corrected the mainnet (626) implementation addresses in `_contract_data.py`
+  (`MAINNET_*_IMPL`) to match the live on-chain proxy implementations (verified
+  via the EIP-1967 slot). Runtime behavior is unchanged.
+
 ## [1.1.0] - 2026-06-22
 
 - `abi.py` regenerated from the canonical [`abis/`](../../abis) artifacts, which
