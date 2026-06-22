@@ -103,52 +103,48 @@ uvx ty check
 
 We use [`ty`](https://github.com/astral-sh/ty), Astral's static type checker.
 
-### Regenerate the ABI module
+### Regenerate the generated modules
 
-`battlechain/abi.py` is auto-generated from forge build artifacts in the
-sibling `battlechain-lib` Solidity repo. Whenever the Solidity interfaces
-change, regenerate:
+`battlechain/abi.py` and `battlechain/_contract_data.py` are **generated — do not
+hand-edit them.** They derive from the committed artifacts the canonical
+`@cyfrin/battlechain-lib` monorepo produces at its root (this package lives at
+`packages/battlechain-lib-py/`):
+
+- `abi.py` ← `../../abis/*.json` (raw contract ABIs)
+- `_contract_data.py` ← `../../deployments.json` (addresses, chain IDs, CAIP-2
+  ids, Safe Harbor URIs, CreateX chain lists)
+
+Those root artifacts are themselves generated from the deployed Solidity in
+[`battlechain-safe-harbor-contracts`](https://github.com/Cyfrin/battlechain-safe-harbor-contracts)
+(the source of truth) by the monorepo's `scripts/codegen.mjs`. Regenerate the
+Python side with:
 
 ```bash
-# Defaults to ../battlechain-lib
-uv run python tools/gen_abi.py
-
-# Or point at a specific working copy
-uv run python tools/gen_abi.py /path/to/battlechain-lib
-
-# Skip `forge build` if you've already built (faster iteration)
-uv run python tools/gen_abi.py --no-build
+just gen          # = gen-abi + gen-config
+# or individually:
+uv run python tools/gen_abi.py        # rewrites battlechain/abi.py from ../../abis
+uv run python tools/gen_config.py     # rewrites battlechain/_contract_data.py from ../../deployments.json
 ```
 
-The script:
-1. Runs `forge build` inside the Solidity repo (unless `--no-build`).
-2. Reads `out/<Iface>.sol/<Iface>.json` for each interface (`IAgreementFactory`,
-   `IAgreement`, `IAttackRegistry`, `IBCSafeHarborRegistry`, `IBCDeployer`).
-3. Extracts the `.abi` field from each artifact.
-4. Renders `battlechain/abi.py` with the standard ABI list-of-dicts shape that
-   boa and web3.py both accept.
+Commit the regenerated files alongside the change that motivated them. A
+`codegen-check` CI job re-runs every generator and fails on any drift, so the
+committed output can't silently fall out of sync.
 
-Commit the regenerated `abi.py` alongside any code changes that motivated it.
+## Keeping in sync with the contracts
 
-## Keeping in sync with battlechain-lib (Solidity)
+Addresses and ABIs are **generated**, so most "syncing" is automatic. The chain
+of truth is: `battlechain-safe-harbor-contracts` (deployed contracts) →
+`scripts/codegen.mjs` → `deployments.json` + `abis/` → this package's generators.
 
-This library mirrors the public surface of
-[`cyfrin/battlechain-lib`](https://github.com/Cyfrin/battlechain-lib). When the
-Solidity lib changes, here's what to update:
+| What changed | What to do here |
+| --- | --- |
+| Contract addresses / chain IDs / URIs | nothing by hand — `just gen` regenerates `battlechain/_contract_data.py` from `../../deployments.json` |
+| Interface ABIs | nothing by hand — `just gen` regenerates `battlechain/abi.py` from `../../abis/` |
+| Behavior of a builder / action / query | edit the hand-written logic: `config.py`, `createx_chains.py`, `types.py`, `builders.py`, `safe_harbor.py`, `query.py`, `deploy.py`, `errors.py` |
 
-| Solidity change              | Python update                                                         |
-| ---------------------------- | --------------------------------------------------------------------- |
-| `BCConfig.sol` addresses     | `battlechain/config.py` constants + `bc_mainnet` / `bc_testnet`       |
-| `AgreementTypes.sol`         | `battlechain/types.py` dataclasses/enums                              |
-| Interface methods            | Run `tools/gen_abi.py` to refresh `battlechain/abi.py`                |
-| `BCSafeHarbor.sol` builders  | `battlechain/builders.py` + corresponding `safe_harbor.py` actions    |
-| `BCDeploy.sol` helpers       | `battlechain/deploy.py`                                               |
-| `BCQuery.sol` predicates     | `battlechain/query.py` (Python uses HTTP directly instead of FFI)     |
-| `CreateXChains.sol` chain list | `battlechain/createx_chains.py` `PRODUCTION_CHAIN_IDS` / `TEST_CHAIN_IDS` |
-| New custom errors            | `battlechain/errors.py`                                               |
-
-Add a test in `tests/test_smoke.py` that pins the new behavior to a value from
-the Solidity source — that's the cheapest way to catch silent drift.
+Run `just gen` and commit the regenerated files. Add a test in
+`tests/test_smoke.py` that pins the new behavior to a value from the canonical
+artifacts — the cheapest way to catch silent drift.
 
 ## Conventions
 
