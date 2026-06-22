@@ -13,7 +13,9 @@
   "files": [
     "/src/**/*.sol",
     "!/src/**/mocks/**/*",
-    "/dist/**/*"
+    "/dist/**/*",
+    "/deployments.json",
+    "/abis/**/*.json"
   ],
   "scripts": {
     "build": "forge build",
