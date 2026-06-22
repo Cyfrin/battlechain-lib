@@ -102,7 +102,7 @@ non-Hardhat scripts (parity with battlechain-lib-py).
 
 | Network | Chain ID | Status                  |
 | ------- | -------- | ----------------------- |
-| Mainnet | 626      | TBD (addresses pending) |
+| Mainnet | 626      | Available               |
 | Testnet | 627      | Available               |
 
 For local Anvil/Hardhat or unsupported chains, register addresses with `setOverrides`:
