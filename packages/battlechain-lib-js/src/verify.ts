@@ -22,6 +22,7 @@ import * as path from "node:path";
 
 import * as bcContracts from "./contracts.js";
 import * as config from "./config.js";
+import { BattleChainError } from "./errors.js";
 
 const DEFAULT_API_KEY = "not-required";
 
@@ -80,9 +81,33 @@ function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// Parse a response body as JSON, but fail with a clear, actionable error when
+// the explorer returns a non-OK status or a non-JSON body (e.g. a gateway
+// "no available server" plaintext during an outage). Without this, a bare
+// `res.json()` throws an opaque `SyntaxError: Unexpected token ...` that
+// aborts the whole deploy flow with no indication it was the explorer.
+async function readJsonResponse(
+  res: Response,
+  context: string,
+): Promise<Record<string, unknown>> {
+  const text = await res.text();
+  if (!res.ok) {
+    const snippet = text ? ` — ${text.slice(0, 200)}` : "";
+    throw new BattleChainError(`${context}: explorer returned HTTP ${res.status}${snippet}`);
+  }
+  try {
+    return JSON.parse(text) as Record<string, unknown>;
+  } catch {
+    const snippet = text ? text.slice(0, 200) : "(empty body)";
+    throw new BattleChainError(
+      `${context}: explorer returned a non-JSON response: ${snippet}`,
+    );
+  }
+}
+
 async function httpGet(url: string): Promise<Record<string, unknown>> {
   const res = await fetch(url);
-  return (await res.json()) as Record<string, unknown>;
+  return readJsonResponse(res, `GET ${url}`);
 }
 
 async function httpPostForm(
@@ -95,7 +120,7 @@ async function httpPostForm(
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body,
   });
-  return (await res.json()) as Record<string, unknown>;
+  return readJsonResponse(res, `POST ${url}`);
 }
 
 async function isAlreadyVerified(
