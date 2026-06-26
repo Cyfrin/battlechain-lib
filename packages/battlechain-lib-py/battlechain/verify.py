@@ -108,6 +108,37 @@ def _build_vyper_payload(contract_file: str, source_code: str) -> dict[str, Any]
     }
 
 
+_VYPER_RELEASES_URL = "https://vyper-releases-mirror.hardhat.org/list.json"
+
+
+def _resolve_vyper_version(version: str) -> str:
+    """Resolve a vyper version to the full ``X.Y.Z+commit.<hash>`` form.
+
+    The explorer's verifier (Sourcify) fetches the compiler binary by version and
+    needs the full version *with* commit hash and *no* leading "v" — a bare
+    "0.4.3" 404s ("Failed fetching vyper 0.4.3 for platform linux"). `vyper`
+    doesn't expose its commit hash at runtime, so derive it from the same release
+    list the explorer UI uses. Already-full versions pass through (sans leading "v");
+    on any lookup failure we fall back to the bare version rather than block.
+    """
+    v = version.lstrip("v")
+    if "+commit." in v:
+        return v
+    try:
+        with urllib.request.urlopen(_VYPER_RELEASES_URL, timeout=15) as resp:
+            releases = json.loads(resp.read())
+        for release in releases:
+            for asset in release.get("assets", []):
+                name = asset.get("name", "")  # e.g. "vyper.0.4.3+commit.bff19ea2.linux"
+                if name.startswith("vyper.") and name.endswith(".linux"):
+                    full = name[len("vyper.") : -len(".linux")]
+                    if full.split("+commit.")[0] == v:
+                        return full
+    except Exception as exc:  # noqa: BLE001 - network/parse failure is non-fatal
+        print(f"  ⚠ Could not resolve full vyper version for {v}: {exc}")
+    return v
+
+
 def verify_contract(
     address: str,
     contract_fqn: str,
@@ -123,8 +154,9 @@ def verify_contract(
     Args:
         address: Deployed contract address.
         contract_fqn: File path and contract name, e.g. "src/MockToken.vy:MockToken".
-        compiler_version: Compiler version string (e.g. "0.4.0" — the leading
-            "v" is added automatically).
+        compiler_version: Compiler version string (e.g. "0.4.3"). Resolved to the
+            full "X.Y.Z+commit.<hash>" form the verifier needs; full versions and
+            a leading "v" are also accepted.
         source_path: Override path to the source file. Defaults to the path
             component of `contract_fqn`.
         chain_id: Override chain ID. Defaults to the active boa environment.
@@ -165,7 +197,7 @@ def verify_contract(
             "sourceCode": json.dumps(std_json),
             "codeformat": code_format,
             "contractname": contract_fqn,
-            "compilerversion": f"v{compiler_version}",
+            "compilerversion": _resolve_vyper_version(compiler_version),
         })
     except urllib.error.URLError as exc:
         print(f"  ✗ Verification submission failed: {exc}")

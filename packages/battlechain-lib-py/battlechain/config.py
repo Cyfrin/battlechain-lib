@@ -223,6 +223,19 @@ def attack_registry_address(chain_id: int) -> str:
     return get_network_config(chain_id).attack_registry
 
 
+def mock_registry_moderator_address(chain_id: int) -> str | None:
+    """Return the permissionless MockRegistryModerator address for a chain.
+
+    Only deployed on BattleChain testnet, where it lets an adopter self-approve
+    a pending attack request (ATTACK_REQUESTED -> UNDER_ATTACK). Returns None on
+    any other chain — on mainnet, approval is a real DAO governance action.
+    Mirrors JS `mockRegistryModeratorAddress`.
+    """
+    if chain_id == TESTNET_CHAIN_ID:
+        return TESTNET_MOCK_REGISTRY_MODERATOR
+    return None
+
+
 def deployer_address(chain_id: int) -> str:
     """Return the deployer address for a chain.
 
@@ -332,6 +345,7 @@ __all__ = [
     "explorer_host",
     "get_network_config",
     "is_battlechain",
+    "mock_registry_moderator_address",
     "registry_address",
     "safe_harbor_uri",
     "set_overrides",

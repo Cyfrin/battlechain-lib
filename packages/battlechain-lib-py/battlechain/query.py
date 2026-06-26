@@ -98,33 +98,12 @@ def is_attackable(contract_address: str) -> bool:
 # These work only for *top-level* contracts (those deployed via
 # BattleChainDeployer). For child contracts, prefer `is_attackable` above.
 
-_ATTACK_REGISTRY_QUERY_METHODS: list[dict[str, Any]] = [
-    {
-        "type": "function",
-        "name": "getAgreementState",
-        "stateMutability": "view",
-        "inputs": [{"name": "agreementAddress", "type": "address"}],
-        "outputs": [{"name": "", "type": "uint8"}],
-    },
-    {
-        "type": "function",
-        "name": "getAgreementForContract",
-        "stateMutability": "view",
-        "inputs": [{"name": "contractAddress", "type": "address"}],
-        "outputs": [{"name": "", "type": "address"}],
-    },
-    {
-        "type": "function",
-        "name": "isTopLevelContractUnderAttack",
-        "stateMutability": "view",
-        "inputs": [{"name": "contractAddress", "type": "address"}],
-        "outputs": [{"name": "", "type": "bool"}],
-    },
-]
-
-ATTACK_REGISTRY_QUERY_ABI: list[dict[str, Any]] = (
-    ATTACK_REGISTRY_ABI + _ATTACK_REGISTRY_QUERY_METHODS
-)
+# The generated ATTACK_REGISTRY_ABI already includes the read methods
+# (getAgreementState, getAgreementForContract, isTopLevelContractUnderAttack), so
+# this is just an alias. It used to concatenate hand-written copies of those three
+# methods, which — once the ABI was regenerated to include them — produced duplicate
+# entries and made boa raise "Ambiguous call to getAgreementState".
+ATTACK_REGISTRY_QUERY_ABI: list[dict[str, Any]] = ATTACK_REGISTRY_ABI
 
 
 def _query_registry() -> Any:

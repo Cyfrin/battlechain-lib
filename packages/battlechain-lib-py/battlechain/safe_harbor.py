@@ -9,7 +9,7 @@ import time
 
 from battlechain import _boa, config
 from battlechain.builders import DEFAULT_COMMITMENT_DAYS
-from battlechain.errors import NotBattleChainError
+from battlechain.errors import BattleChainError, NotBattleChainError
 from battlechain.types import AgreementDetails
 
 SECONDS_PER_DAY = 24 * 60 * 60
@@ -77,6 +77,26 @@ def request_attack_mode(agreement_address: str) -> None:
     _boa.attack_registry().requestUnderAttack(agreement_address)
 
 
+def approve_attack_request(agreement_address: str) -> None:
+    """Self-approve a pending attack request via the testnet MockRegistryModerator.
+
+    Moves the agreement from ATTACK_REQUESTED (2) to UNDER_ATTACK (3). Mirrors JS
+    `approveAttackRequest` and the `cast send <moderator> "approveAttack(address)"`
+    flow from the BattleChain testnet docs. Only available on testnet, where the
+    moderator is permissionless; on mainnet, approval is a real DAO governance
+    action, so this raises.
+    """
+    chain_id = _boa.chain_id()
+    moderator = config.mock_registry_moderator_address(chain_id)
+    if moderator is None:
+        raise BattleChainError(
+            f"approve_attack_request is only available on BattleChain testnet "
+            f"(chain ID {config.TESTNET_CHAIN_ID}); got chain ID {chain_id}. "
+            f"On mainnet, approval is a real DAO governance action."
+        )
+    _boa.mock_registry_moderator(moderator).approveAttack(agreement_address)
+
+
 def skip_to_production(agreement_address: str) -> None:
     """Skip an agreement directly to production. Only available on BattleChain.
 
@@ -90,6 +110,7 @@ def skip_to_production(agreement_address: str) -> None:
 
 __all__ = [
     "adopt_agreement",
+    "approve_attack_request",
     "create_agreement",
     "create_and_adopt_agreement",
     "request_attack_mode",

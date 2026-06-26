@@ -1048,6 +1048,17 @@ DEPLOYER_ABI: list[dict[str, Any]] = [
     },
 ]
 
+# Source: abis/registryModerator.json
+MOCK_REGISTRY_MODERATOR_ABI: list[dict[str, Any]] = [
+    {
+        "type": "function",
+        "name": "approveAttack",
+        "inputs": [{"name": "agreementAddress", "type": "address", "internalType": "address"}],
+        "outputs": [],
+        "stateMutability": "nonpayable",
+    }
+]
+
 
 __all__ = [
     "AGREEMENT_FACTORY_ABI",
@@ -1055,4 +1066,5 @@ __all__ = [
     "ATTACK_REGISTRY_ABI",
     "REGISTRY_ABI",
     "DEPLOYER_ABI",
+    "MOCK_REGISTRY_MODERATOR_ABI",
 ]

@@ -29,6 +29,7 @@ ARTIFACTS = {
     "attackRegistry": "ATTACK_REGISTRY_ABI",
     "registry": "REGISTRY_ABI",
     "deployer": "DEPLOYER_ABI",
+    "registryModerator": "MOCK_REGISTRY_MODERATOR_ABI",
 }
 
 # Package root is two levels up from this file (tools/ -> battlechain-lib-py/).
