@@ -212,6 +212,37 @@ function normalizeConstructorArgs(args?: string): string {
   return args.startsWith("0x") ? args.slice(2) : args;
 }
 
+const VYPER_RELEASES_URL = "https://vyper-releases-mirror.hardhat.org/list.json";
+
+/**
+ * Resolve a vyper version to the full `X.Y.Z+commit.<hash>` form the explorer's
+ * Sourcify verifier needs to fetch the compiler. A bare "0.4.3" 404s ("Failed
+ * fetching vyper 0.4.3 for platform linux") and, unlike solc, vyper wants NO
+ * leading "v". `vyper` doesn't expose its commit hash, so derive it from the same
+ * release list the explorer UI uses. Already-full versions pass through (sans "v");
+ * on lookup failure, fall back to the bare version rather than block.
+ */
+async function resolveVyperVersion(version: string): Promise<string> {
+  const v = version.replace(/^v/, "");
+  if (v.includes("+commit.")) return v;
+  try {
+    const res = await fetch(VYPER_RELEASES_URL);
+    const releases = (await res.json()) as Array<{ assets?: Array<{ name: string }> }>;
+    for (const release of releases) {
+      for (const asset of release.assets ?? []) {
+        // e.g. "vyper.0.4.3+commit.bff19ea2.linux"
+        if (asset.name.startsWith("vyper.") && asset.name.endsWith(".linux")) {
+          const full = asset.name.slice("vyper.".length, -".linux".length);
+          if (full.split("+commit.")[0] === v) return full;
+        }
+      }
+    }
+  } catch (e) {
+    console.warn(`  ⚠ Could not resolve full vyper version for ${v}: ${(e as Error).message}`);
+  }
+  return v;
+}
+
 /**
  * Verify a deployed contract on the BattleChain block explorer.
  *
@@ -279,12 +310,19 @@ export async function verifyContract(opts: VerifyContractOptions): Promise<boole
 
   // The BattleChain explorer relies on these top-level form fields rather
   // than parsing them from the standard JSON `settings`. Send them all.
+  // Vyper wants the full version with commit hash and no leading "v"; solc wants
+  // the "v"-prefixed version (callers pass the full solcLongVersion).
+  const compilerversion =
+    codeFormat === "vyper-json"
+      ? await resolveVyperVersion(opts.compilerVersion)
+      : normalizeCompilerVersion(opts.compilerVersion);
+
   const body: Record<string, string> = {
     contractaddress: opts.address,
     sourceCode: sourceCodePayload,
     codeformat: codeFormat,
     contractname: opts.contractFqn,
-    compilerversion: normalizeCompilerVersion(opts.compilerVersion),
+    compilerversion,
     constructorArguments: normalizeConstructorArgs(opts.constructorArgs),
     // Forge sends these too — the explorer expects them despite the standard
     // JSON containing the same info.
