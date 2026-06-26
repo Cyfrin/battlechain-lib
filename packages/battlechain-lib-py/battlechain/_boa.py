@@ -17,6 +17,7 @@ from battlechain.abi import (
     AGREEMENT_FACTORY_ABI,
     ATTACK_REGISTRY_ABI,
     DEPLOYER_ABI,
+    MOCK_REGISTRY_MODERATOR_ABI,
     REGISTRY_ABI,
 )
 
@@ -77,3 +78,12 @@ def deployer(address: str | None = None) -> Any:
     """
     addr = address or config.deployer_address(chain_id())
     return _load(DEPLOYER_ABI, addr, name="BCDeployer")
+
+
+def mock_registry_moderator(address: str | None = None) -> Any:
+    """Load the permissionless MockRegistryModerator for the active chain.
+
+    Only deployed on BattleChain testnet (self-approval of attack requests).
+    """
+    addr = address or config.mock_registry_moderator_address(chain_id())
+    return _load(MOCK_REGISTRY_MODERATOR_ABI, addr, name="MockRegistryModerator")

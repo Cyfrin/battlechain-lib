@@ -83,6 +83,7 @@ from battlechain.query import (
 )
 from battlechain.safe_harbor import (
     adopt_agreement,
+    approve_attack_request,
     create_agreement,
     create_and_adopt_agreement,
     request_attack_mode,
@@ -168,6 +169,7 @@ __all__ = [
     "track_deployment",
     # safe harbor
     "adopt_agreement",
+    "approve_attack_request",
     "create_agreement",
     "create_and_adopt_agreement",
     "request_attack_mode",
